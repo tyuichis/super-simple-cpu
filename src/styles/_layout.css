@@ -1,0 +1,132 @@
+:root {
+    --mem-table-horizontal-cell-gap: 1em;
+    --mem-table-vertical-cell-gap: 0.75em;
+    --mem-caption-gap: 0.75em;
+    --opcode-table-horizontal-cell-gap: 2.125em;
+    --opcode-table-vertical-cell-gap: 1em;
+    --opcode-caption-gap: 0.75em;
+}
+
+/* ======================== */
+/*  Global Layout           */
+/* ======================== */
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app-wrapper {
+    flex-grow: 1;
+    max-width: 98%;
+}
+
+/* One column, three rows global layout
+<HEADER>
+<MAIN>
+<FOOTER>
+*/
+header {
+    grid-area: header;
+}
+
+main {
+    display: grid;
+    grid-area: main;
+}
+
+/* footer {
+    grid-area: footer;
+} */
+
+#app-wrapper {
+    display: grid;
+    grid-template:
+    "header"
+    "main";
+    /* "footer"; */
+    /* gap: 3em; */
+}
+
+/* Three column grid layout within the main content */
+section#main-view {
+    grid-area: "main-view"
+}
+
+section#memory-view {
+    grid-area: "memory-view"
+}
+
+section#opcode-view {
+    grid-area: "opcode-view"
+}
+
+main {
+    display: grid;
+    grid-template:
+    "main-view memory-view opcode-view";
+}
+
+
+/* ======================== */
+/*  Header                  */
+/* ======================== */
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1.25em;
+}
+
+#app-controls {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+/* ======================== */
+/*  Main                    */
+/* ======================== */
+
+#nav-tabs-group {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2.5em;
+}
+
+#nav-tabs-group li {
+    list-style-type: none;
+}
+
+/* ======================== */
+/*  Tables                  */
+/* ======================== */
+
+/* #mem-view caption {
+    margin-bottom: var(--mem-caption-gap);
+}
+
+#opcode-view caption {
+    margin-bottom: var(--opcode-caption-gap);
+} */
+
+#memory-view .table-title {
+    margin-bottom: var(--mem-caption-gap);
+}
+
+#opcode-view .table-title {
+    margin-bottom: var(--opcode-caption-gap);
+}
+
+#memory-view table {
+    border-spacing: var(--mem-table-horizontal-cell-gap) var(--mem-table-vertical-cell-gap);
+}
+
+#opcode-view table {
+    border-spacing: var(--opcode-table-horizontal-cell-gap) var(--opcode-table-vertical-cell-gap);
+}
