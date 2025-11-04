@@ -1,0 +1,100 @@
+:root {
+    --primary-font: "Inter", -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+    --monospace-font: "JetBrains Mono", monospace;
+    /* 20px target / 16px root = 1.25em */
+    --h2-font-size: 1.25em;
+    /* 12px target /16px root = 0.75em */
+    --monospace-font-size: 0.75em;
+    --app-outline-color: #E5E5E5;
+    --table-outline-color:  #E5E5E5;
+    --table-border-radius: 6px;
+    --table-input-padding: 0.35em 0.35em;
+}
+
+/* ======================== */
+/*  Appearance              */
+/* ======================== */
+
+/* Tables and Inputs */
+#memory-view table,
+input {
+    border: 1px solid var(--table-outline-color);
+    border-radius: var(--table-border-radius);
+}
+
+#memory-view input {
+    padding: var(--table-input-padding);
+}
+
+#opcode-view {
+    border-left: 1px solid var(--app-outline-color);
+}
+
+/* ======================== */
+/*  Typography              */
+/* ======================== */
+
+/* Global */
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--primary-font);
+}
+
+/* Navigation */
+
+#nav-tabs-group li {
+    font-weight: 500;
+}
+
+/* Tables */
+
+th {
+    /* Medium weight */
+    font-weight: 500;
+}
+
+/* table caption */
+.table-title{
+    text-align: left;
+    font-weight: 500;
+    font-size: var(--h2-font-size);
+}
+
+/* Memory Table */
+#memory-table-header-address {
+    text-align: center;
+}
+
+#memory-table-header-value {
+    text-align: left;
+}
+
+/* Opcode Table */
+
+#opcode-table-header-binary,
+tbody tr td:nth-child(1) {
+    text-align: center;
+} 
+
+#opcode-table-header-instruction,
+tbody tr td:nth-child(2) {
+    text-align: center;
+} 
+
+#opcode-table-header-explanation,
+tbody tr td:nth-child(3) {
+    text-align: left;
+} 
+
+#opcode-view code {
+    font-family: var(--monospace-font);
+    font-optical-sizing: auto;
+}
+
+#opcode-view td {
+    font-size: var(--monospace-font-size);
+}
