@@ -40,283 +40,299 @@
         <section id="main-view">
           <nav id="nav-view">
             <ul id="nav-tabs-group">
-              <li id="nav-view-main">Main</li>
-              <li id="nav-view-log-window">Log Window</li>
-              <li id="nav-view-assembly-window">Assembly Window</li>
-              <li id="nav-view-example-list">Example List</li>
+              <li id="nav-view-main">
+                <button id="view-main-button" class="nav-view-button">
+                  Main
+                </button>
+              </li>
+              <li id="nav-view-log-window">
+                <button id="view-log-window-button" class="nav-view-button">
+                  Log Window
+                </button>
+              </li>
+              <li id="nav-view-assembly-window">
+                <button id="view-assembly-window-button" class="nav-view-button">
+                  Assembly Window
+                </button>
+              </li>
+              <li id="nav-view-example-list">
+                <button id="view-example-list-button" class="nav-view-button">
+                  Example List
+                </button>
+              </li>
             </ul>
           </nav>
         </section>
         <section id="memory-view">
           <div class="table-container">
             <div class="table-title">Memory</div>
-              <table>
-                <!-- <caption>
+            <table>
+              <!-- <caption>
                   Memory
                 </caption> -->
-                <thead>
-                  <tr>
-                    <th scope="col" id="memory-table-header-address">Address</th>
-                    <th scope="col" id="memory-table-header-value">Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td id="mem-addr-0">0</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-0"
-                        aria-labelledby="mem-addr-0"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-1">1</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-1"
-                        aria-labelledby="mem-addr-1"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-2">2</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-2"
-                        aria-labelledby="mem-addr-2"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-3">3</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-3"
-                        aria-labelledby="mem-addr-3"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-4">4</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-4"
-                        aria-labelledby="mem-addr-4"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-5">5</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-5"
-                        aria-labelledby="mem-addr-5"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-6">6</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-6"
-                        aria-labelledby="mem-addr-6"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-7">7</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-7"
-                        aria-labelledby="mem-addr-7"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-8">8</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-8"
-                        aria-labelledby="mem-addr-8"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-9">9</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-9"
-                        aria-labelledby="mem-addr-9"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-10">10</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-10"
-                        aria-labelledby="mem-addr-10"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-11">11</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-11"
-                        aria-labelledby="mem-addr-11"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-12">12</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-12"
-                        aria-labelledby="mem-addr-12"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-13">13</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-13"
-                        aria-labelledby="mem-addr-13"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-14">14</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-14"
-                        aria-labelledby="mem-addr-14"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td id="mem-addr-15">15</td>
-                    <td>
-                      <input
-                        type="text"
-                        id="mem-val-15"
-                        aria-labelledby="mem-addr-15"
-                        maxlength="16"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <thead>
+                <tr>
+                  <th scope="col" id="memory-table-header-address">Address</th>
+                  <th scope="col" id="memory-table-header-value">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="mem-addr-0">0</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-0"
+                      aria-labelledby="mem-addr-0"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-1">1</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-1"
+                      aria-labelledby="mem-addr-1"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-2">2</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-2"
+                      aria-labelledby="mem-addr-2"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-3">3</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-3"
+                      aria-labelledby="mem-addr-3"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-4">4</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-4"
+                      aria-labelledby="mem-addr-4"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-5">5</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-5"
+                      aria-labelledby="mem-addr-5"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-6">6</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-6"
+                      aria-labelledby="mem-addr-6"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-7">7</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-7"
+                      aria-labelledby="mem-addr-7"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-8">8</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-8"
+                      aria-labelledby="mem-addr-8"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-9">9</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-9"
+                      aria-labelledby="mem-addr-9"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-10">10</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-10"
+                      aria-labelledby="mem-addr-10"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-11">11</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-11"
+                      aria-labelledby="mem-addr-11"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-12">12</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-12"
+                      aria-labelledby="mem-addr-12"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-13">13</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-13"
+                      aria-labelledby="mem-addr-13"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-14">14</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-14"
+                      aria-labelledby="mem-addr-14"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td id="mem-addr-15">15</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="mem-val-15"
+                      aria-labelledby="mem-addr-15"
+                      maxlength="16"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
         <section id="opcode-view">
           <div class="table-container">
             <div class="table-title">Opcodes</div>
-              <table>
-                <!-- <caption>
+            <table>
+              <!-- <caption>
                   Opcodes
                 </caption> -->
-                <thead>
-                  <tr>
-                    <th scope="col" id="opcode-table-header-binary">Binary</th>
-                    <th scope="col" id="opcode-table-header-instructions">
-                      Instruction
-                    </th>
-                    <th scope="col" id="opcode-table-header-explanation">
-                      Explanation
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code>1111</code></td>
-                    <td><code>STP</code></td>
-                    <td>Stop the computer</td>
-                  </tr>
-                  <tr>
-                    <td><code>0001</code></td>
-                    <td><code>ADD</code></td>
-                    <td>Add accum. to operand</td>
-                  </tr>
-                  <tr>
-                    <td><code>0010</code></td>
-                    <td><code>SUB</code></td>
-                    <td>Subtract operand from accum.</td>
-                  </tr>
-                  <tr>
-                    <td><code>0011</code></td>
-                    <td><code>LOD</code></td>
-                    <td>Load memory cell into accum.</td>
-                  </tr>
-                  <tr>
-                    <td><code>0100</code></td>
-                    <td><code>LDI</code></td>
-                    <td>Load immediate into accum.</td>
-                  </tr>
-                  <tr>
-                    <td><code>0101</code></td>
-                    <td><code>STO</code></td>
-                    <td>Store accum. into memory cell</td>
-                  </tr>
-                  <tr>
-                    <td><code>0110</code></td>
-                    <td><code>INP</code></td>
-                    <td>Input value and store into accum.</td>
-                  </tr>
-                  <tr>
-                    <td><code>0111</code></td>
-                    <td><code>OUT</code></td>
-                    <td>Output the value from accum.</td>
-                  </tr>
-                  <tr>
-                    <td><code>1000</code></td>
-                    <td><code>JMP</code></td>
-                    <td>Jump to instruction</td>
-                  </tr>
-                  <tr>
-                    <td><code>1001</code></td>
-                    <td><code>JNG</code></td>
-                    <td>Jump to instruction if accum&lt;0</td>
-                  </tr>
-                  <tr>
-                    <td><code>1010</code></td>
-                    <td><code>JZR</code></td>
-                    <td>Jump to instruction if accum=0</td>
-                  </tr>
-                </tbody>
-              </table>
+              <thead>
+                <tr>
+                  <th scope="col" id="opcode-table-header-binary">Binary</th>
+                  <th scope="col" id="opcode-table-header-instructions">
+                    Instruction
+                  </th>
+                  <th scope="col" id="opcode-table-header-explanation">
+                    Explanation
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>1111</code></td>
+                  <td><code>STP</code></td>
+                  <td>Stop the computer</td>
+                </tr>
+                <tr>
+                  <td><code>0001</code></td>
+                  <td><code>ADD</code></td>
+                  <td>Add accum. to operand</td>
+                </tr>
+                <tr>
+                  <td><code>0010</code></td>
+                  <td><code>SUB</code></td>
+                  <td>Subtract operand from accum.</td>
+                </tr>
+                <tr>
+                  <td><code>0011</code></td>
+                  <td><code>LOD</code></td>
+                  <td>Load memory cell into accum.</td>
+                </tr>
+                <tr>
+                  <td><code>0100</code></td>
+                  <td><code>LDI</code></td>
+                  <td>Load immediate into accum.</td>
+                </tr>
+                <tr>
+                  <td><code>0101</code></td>
+                  <td><code>STO</code></td>
+                  <td>Store accum. into memory cell</td>
+                </tr>
+                <tr>
+                  <td><code>0110</code></td>
+                  <td><code>INP</code></td>
+                  <td>Input value and store into accum.</td>
+                </tr>
+                <tr>
+                  <td><code>0111</code></td>
+                  <td><code>OUT</code></td>
+                  <td>Output the value from accum.</td>
+                </tr>
+                <tr>
+                  <td><code>1000</code></td>
+                  <td><code>JMP</code></td>
+                  <td>Jump to instruction</td>
+                </tr>
+                <tr>
+                  <td><code>1001</code></td>
+                  <td><code>JNG</code></td>
+                  <td>Jump to instruction if accum&lt;0</td>
+                </tr>
+                <tr>
+                  <td><code>1010</code></td>
+                  <td><code>JZR</code></td>
+                  <td>Jump to instruction if accum=0</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>
