@@ -129,7 +129,7 @@ header {
 }
 
 #memory-view table {
-    border-spacing: var(--mem-table-girizontal-cell-gap) var(--mem-table-vertical-cell-gap);
+    border-spacing: var(--mem-table-horizontal-cell-gap) var(--mem-table-vertical-cell-gap);
 }
 
 #opcode-view table {
