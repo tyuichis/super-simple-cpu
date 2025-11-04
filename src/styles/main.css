@@ -1,0 +1,27 @@
+@import '_base.css';
+@import '_components.css';
+@import '_layout.css';
+@import '_theme.css';
+
+:root {
+    --app-border-color: #E5E5E5;
+    --app-border-radius: 6px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ======================== */
+/*  Global App Appearance   */
+/* ======================== */
+
+#app-wrapper {
+    border: 1px solid var(--app-border-color);
+    border-radius: var(--app-border-radius);
+}
+
+header {
+    border-bottom: 1px solid var(--app-border-color);
+    border-radius: var(--app-border-color) var(--app-border-color) 0 0;
+}
