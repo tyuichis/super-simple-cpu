@@ -1,0 +1,48 @@
+:root {
+    --button-padding: 0.5em 1.5em;
+    --primary-button-bg-color: black;
+    --primary-button-font-color: white;
+    --secondary-button-bg-color: #F5F5F5;
+    --secondary-button-outline: #E5E5E5;
+    --outline-button-outline: #E5E5E5;
+    --button-border-radius: 6px;
+
+    --select-button-padding: 0.5em 2em 0.5em 0.5em;
+    --select-button-border-radius: 6px;
+}
+
+/* ======================== */
+/*  Buttons                 */
+/* ======================== */
+
+/* TODO: hover styles (variables)  */
+
+button {
+    padding: var(--button-padding);
+    border-radius: var(--button-border-radius);
+    border: none;
+    cursor: pointer;
+}
+
+.primary-button {
+    color: var(--primary-button-font-color);
+    background-color: var(--primary-button-bg-color);
+}
+
+.secondary-button {
+    background-color: var(--secondary-button-bg-color);
+    border: 1px solid var(--secondary-button-outline);
+}
+
+.tertiary-button {
+    background: none;
+    border: 1px solid var(--outline-button-outline);
+}
+
+select {
+    background: none;
+    border: 2px solid var(--outline-button-outline);
+    padding: var(--select-button-padding);
+    text-align: left;
+    border-radius: var(--select-button-border-radius);
+}
