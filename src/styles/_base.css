@@ -3,6 +3,7 @@
     --monospace-font: "JetBrains Mono", monospace;
     /* 20px target / 16px root = 1.25em */
     --h2-font-size: 1.25em;
+    --nav-element-font-size: 0.95em;
     /* 12px target /16px root = 0.75em */
     --monospace-font-size: 0.75em;
     --app-outline-color: #E5E5E5;
@@ -46,9 +47,18 @@ body {
 
 /* Navigation */
 
-#nav-tabs-group li {
+.nav-view-button {
     font-weight: 500;
+    font-size: var(--nav-element-font-size);
 }
+
+.nav-view-button:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1.75px;
+    /* 25% offset? 16px * 0.25 = 4px*/
+    text-underline-offset: 4px;
+}
+
 
 /* Tables */
 
