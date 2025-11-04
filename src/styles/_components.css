@@ -17,10 +17,10 @@
 
 /* TODO: hover styles (variables)  */
 
-#app-controls button {
+#app-controls button,
+#memory-controls button {
     padding: var(--button-padding);
     border-radius: var(--button-border-radius);
-    border: none;
     cursor: pointer;
 }
 
@@ -33,9 +33,11 @@
 .primary-button {
     color: var(--primary-button-font-color);
     background-color: var(--primary-button-bg-color);
+    border: none;
 }
 
 .secondary-button {
+    font-weight: 500;
     background-color: var(--secondary-button-bg-color);
     border: 1px solid var(--secondary-button-outline);
 }
