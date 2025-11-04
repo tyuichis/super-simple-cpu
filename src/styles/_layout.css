@@ -99,6 +99,11 @@ header {
     gap: 2.5em;
 }
 
+
+#nav-tabs-group {
+    padding: 0;
+}
+
 #nav-tabs-group li {
     list-style-type: none;
 }
@@ -124,7 +129,7 @@ header {
 }
 
 #memory-view table {
-    border-spacing: var(--mem-table-horizontal-cell-gap) var(--mem-table-vertical-cell-gap);
+    border-spacing: var(--mem-table-girizontal-cell-gap) var(--mem-table-vertical-cell-gap);
 }
 
 #opcode-view table {
