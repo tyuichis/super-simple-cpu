@@ -17,9 +17,15 @@
 
 /* TODO: hover styles (variables)  */
 
-button {
+#app-controls button {
     padding: var(--button-padding);
     border-radius: var(--button-border-radius);
+    border: none;
+    cursor: pointer;
+}
+
+.nav-view-button {
+    background: none;
     border: none;
     cursor: pointer;
 }
