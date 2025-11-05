@@ -21,6 +21,13 @@
     border-radius: var(--app-border-radius);
 }
 
+/* Main View */
+
+main > section:first-child {
+    border-right: 1px solid var(--app-border-color);
+}
+
+
 header {
     border-bottom: 1px solid var(--app-border-color);
     border-radius: var(--app-border-color) var(--app-border-color) 0 0;
