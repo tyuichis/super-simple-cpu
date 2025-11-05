@@ -51,7 +51,10 @@
                 </button>
               </li>
               <li id="nav-view-assembly-window">
-                <button id="view-assembly-window-button" class="nav-view-button">
+                <button
+                  id="view-assembly-window-button"
+                  class="nav-view-button"
+                >
                   Assembly Window
                 </button>
               </li>
@@ -62,9 +65,98 @@
               </li>
             </ul>
           </nav>
+          <section id="main-tab">
+            <div id="input">
+              <label for="Input">Input</label>
+              <input type="text" class="large-input" />
+            </div>
+            <div id="cpu">
+              <div class="table-container">
+                <div class="table-title">CPU</div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col" id="cpu-table-header-register">
+                        Register
+                      </th>
+                      <th scope="col" id="cpu-table-header-value">Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td id="reg-label-pc">Program Counter (PC)</td>
+                      <td class="cpu-val-container">
+                        <span class="base-10-label"
+                          >Decimal: <span id="base-10-reg-val-pc">0</span></span
+                        >
+                        <input
+                          type="text"
+                          id="reg-val-pc"
+                          aria-labelledby="reg-label-pc"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td id="reg-label-acc">Accumulator (acc)</td>
+                      <td class="cpu-val-container">
+                        <span class="base-10-label"
+                          >Decimal:
+                          <span id="base-10-reg-val-acc">0</span></span
+                        >
+                        <input
+                          type="text"
+                          id="reg-val-acc"
+                          aria-labelledby="reg-label-acc"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td id="reg-label-temp">Temp</td>
+                      <td class="cpu-val-container">
+                        <span class="base-10-label"
+                          >Decimal:
+                          <span id="base-10-reg-val-temp">0</span></span
+                        >
+                        <input
+                          type="text"
+                          id="reg-val-temp"
+                          aria-labelledby="reg-label-temp"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td id="reg-label-ir">IR</td>
+                      <td class="cpu-val-container">
+                        <span class="base-10-label"
+                          >Decimal: <span id="base-10-reg-val-ir">0</span></span
+                        >
+                        <input
+                          type="text"
+                          id="reg-val-ir"
+                          aria-labelledby="reg-label-ir"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div id="output">
+              <label for="Output">Output</label>
+              <input type="text" class="large-input" />
+            </div>
+          </section>
         </section>
         <section id="memory-view">
           <div class="table-container">
+            <div id="memory-controls">
+              <button id="memory-reset-button" class="secondary-button">
+                Reset
+              </button>
+              <button id="memory-next-step-button" class="secondary-button">
+                Next Step
+              </button>
+            </div>
             <div class="table-title">Memory</div>
             <table>
               <!-- <caption>
@@ -79,7 +171,10 @@
               <tbody>
                 <tr>
                   <td id="mem-addr-0">0</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-0"
@@ -90,7 +185,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-1">1</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-1"
@@ -101,7 +199,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-2">2</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-2"
@@ -112,7 +213,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-3">3</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-3"
@@ -123,7 +227,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-4">4</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-4"
@@ -134,7 +241,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-5">5</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-5"
@@ -145,7 +255,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-6">6</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-6"
@@ -156,7 +269,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-7">7</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-7"
@@ -167,7 +283,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-8">8</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-8"
@@ -178,7 +297,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-9">9</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-9"
@@ -189,7 +311,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-10">10</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-10"
@@ -200,7 +325,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-11">11</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-11"
@@ -211,7 +339,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-12">12</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-12"
@@ -222,7 +353,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-13">13</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-13"
@@ -233,7 +367,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-14">14</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-14"
@@ -244,7 +381,10 @@
                 </tr>
                 <tr>
                   <td id="mem-addr-15">15</td>
-                  <td>
+                  <td class="mem-val-container">
+                    <span class="base-10-label"
+                      >Decimal: <span id="base-10-mem-val-0">0</span></span
+                    >
                     <input
                       type="text"
                       id="mem-val-15"
