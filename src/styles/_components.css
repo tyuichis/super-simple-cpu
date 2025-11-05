@@ -54,3 +54,12 @@ select {
     text-align: left;
     border-radius: var(--select-button-border-radius);
 }
+
+/* ======================== */
+/*  Inputs                  */
+/* ======================== */
+
+.large-input {
+    padding: 0.55em;
+    max-width: 15em;
+}
