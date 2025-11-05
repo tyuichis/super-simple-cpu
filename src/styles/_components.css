@@ -64,6 +64,7 @@ select {
     max-width: 15em;
 }
 
-#memory-view input {
+#memory-view input,
+#cpu input {
   padding: var(--table-input-padding);
 }
