@@ -142,8 +142,7 @@ section#main-tab {
 
 section#memory-view {
   display: flex;
-  /* the gap from the main grid takes care of the spacing */
-  justify-content: flex-start;
+  justify-content: center;
   max-height: 75vh;
   overflow-y: auto;
   /* set position relative for sticky buttons on scroll. */
@@ -178,9 +177,9 @@ section#memory-view .table-container {
 /* ======================== */
 
 section#opcode-view {
-	overflow: auto;
-	padding-left: 1rem;
-	border-left: 1px solid var(--app-border-color);
+  overflow: auto;
+  padding-left: 1rem;
+  border-left: 1px solid var(--app-border-color);
 }
 
 /* ======================== */
