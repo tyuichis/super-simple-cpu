@@ -165,7 +165,7 @@ section#memory-view .table-container {
 
 #memory-controls {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: flex-end;
   align-items: center;
   gap: 0.75em;
