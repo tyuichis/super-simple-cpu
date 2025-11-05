@@ -22,6 +22,14 @@
 /*  Appearance              */
 /* ======================== */
 
+body {
+  margin: 12px 0;
+}
+
+#app-wrapper {
+  height: 98vh;
+}
+
 /* Tables and Inputs */
 #memory-view table,
 #cpu table,
@@ -73,8 +81,6 @@ body {
   text-underline-offset: 4px;
 }
 
-/* Main */
-
 /* I/O */
 
 #input label,
@@ -89,6 +95,7 @@ body {
   font-size: 0.75em;
   font-weight: 500;
   color: var(--subtitle-font-color);
+  margin-bottom: 0.25em;
 }
 
 th {
