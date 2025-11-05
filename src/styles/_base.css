@@ -1,13 +1,19 @@
 :root {
+  --page-bg-color: white;
+  --default-font-color: black;
+
   --primary-font: "Inter", -apple-system, BlinkMacSystemFont, avenir next,
     avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto,
     noto, helvetica, arial, sans-serif;
   --monospace-font: "JetBrains Mono", monospace;
   /* 20px target / 16px root = 1.25em */
+  --app-title-font-size: 1.15em;
   --h2-font-size: 1.25em;
+  --button-font-size: 1em;
   --table-header-font-size: 1.15em;
   --io-label-font-size: 1.25em;
   --nav-element-font-size: 0.95em;
+  --cpu-label-font-size: 0.95em;
   /* 12px target /16px root = 0.75em */
   --monospace-font-size: 0.75em;
   --app-outline-color: #e5e5e5;
@@ -18,16 +24,40 @@
   --subtitle-font-color: #737373;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg-color: #0a0a0a;
+    --default-font-color: #d4d4d4;
+    --app-outline-color: #0a0a0a;
+    --table-outline-color: #0a0a0a;
+    --secondary-text-font-color: #cacaca;
+    --subtitle-font-color: #fff;
+    --table-outline-color: #383838;
+  }
+
+  #opcode-view table {
+    border: 1px solid var(--table-outline-color);
+    border-radius: var(--table-border-radius);
+  }
+}
+
 /* ======================== */
 /*  Appearance              */
 /* ======================== */
 
 body {
   margin: 12px 0;
+  background-color: var(--page-bg-color);
+  color: var(--default-font-color);
 }
 
 #app-wrapper {
   height: 98vh;
+}
+
+#app-title {
+  margin: 0;
+  font-size: var(--app-title-font-size);
 }
 
 /* Tables and Inputs */
@@ -45,6 +75,11 @@ input {
 /* Remove weird spacing from the first header in the memory view */
 section#memory-view thead th:first-child {
   padding-left: 0;
+}
+
+#status-message:before {
+  content: "●";
+  padding-right: 0.35em;
 }
 
 /* ======================== */
@@ -81,6 +116,12 @@ body {
   text-underline-offset: 4px;
 }
 
+/* Buttons */
+
+button {
+  font-size: var(--button-font-size);
+}
+
 /* I/O */
 
 #input label,
@@ -89,14 +130,22 @@ body {
   font-size: var(--io-label-font-size);
 }
 
-/* Tables */
-
+/* Labels */
 .base-10-label {
   font-size: 0.75em;
   font-weight: 500;
   color: var(--subtitle-font-color);
   margin-bottom: 0.25em;
 }
+
+.mem-val-container .instruction-label {
+  font-family: var(--monospace-font);
+  font-size: var(--monospace-font-size);
+  color: var(--secondary-text-font-color);
+  margin-bottom: 0.25em;
+}
+
+/* Tables */
 
 th {
   /* Medium weight */
@@ -117,6 +166,10 @@ th {
 #cpu-table-header-register,
 #cpu-table-header-value {
   text-align: left;
+}
+
+#cpu table {
+  font-size: var(--cpu-label-font-size);
 }
 
 /* Memory Table */
@@ -156,4 +209,33 @@ tbody tr td:nth-child(3) {
 
 #opcode-view td:nth-child(3) {
   color: var(--secondary-text-font-color);
+}
+
+/* App Status */
+
+#current-instruction {
+  font-family: var(--monospace-font);
+  font-size: var(--monospace-font-size);
+}
+
+/* ======================== */
+/*  Animations              */
+/* ======================== */
+
+@keyframes pulse {
+  0% {
+    background: inherit;
+  }
+
+  50% {
+    background: oklch(45% 0.085 224.283);
+  }
+
+  100% {
+    background: inherit;
+  }
+}
+
+.pulse {
+  animation: pulse 0.75s ease-in-out;
 }
