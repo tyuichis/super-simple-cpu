@@ -1,10 +1,17 @@
 :root {
-    --mem-table-horizontal-cell-gap: 1em;
-    --mem-table-vertical-cell-gap: 0.75em;
-    --mem-caption-gap: 0.75em;
-    --opcode-table-horizontal-cell-gap: 2.125em;
-    --opcode-table-vertical-cell-gap: 1em;
-    --opcode-caption-gap: 0.75em;
+  --cpu-table-horizontal-cell-gap: 1em;
+  --cpu-table-vertical-cell-gap: 0.75em;
+  /* larger vertical table gap for comfortable reading */
+  --cpu-table-large-vertical-cell-gap: 1.5em;
+  --cpu-caption-gap: 0.75em;
+  --mem-table-horizontal-cell-gap: 1em;
+  --mem-table-vertical-cell-gap: 0.75em;
+  /* larger vertical table gap for comfortable reading */
+  --mem-table-large-vertical-cell-gap: 1.5em;
+  --mem-caption-gap: 0.75em;
+  --opcode-table-horizontal-cell-gap: 2.125em;
+  --opcode-table-vertical-cell-gap: 1em;
+  --opcode-caption-gap: 0.75em;
 }
 
 /* ======================== */
@@ -12,14 +19,14 @@
 /* ======================== */
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #app-wrapper {
-    flex-grow: 1;
-    max-width: 98%;
+  flex-grow: 1;
+  max-width: 98%;
 }
 
 /* One column, three rows global layout
@@ -28,12 +35,13 @@ body {
 <FOOTER>
 */
 header {
-    grid-area: header;
+  grid-area: header;
 }
 
 main {
-    display: grid;
-    grid-area: main;
+  display: grid;
+  grid-area: main;
+  padding: 0 2em 2em 2em;
 }
 
 /* footer {
@@ -41,71 +49,136 @@ main {
 } */
 
 #app-wrapper {
-    display: grid;
-    grid-template:
+  display: grid;
+  grid-template:
     "header"
     "main";
-    /* "footer"; */
-    /* gap: 3em; */
+  /* "footer"; */
+  gap: 1.5em;
 }
 
 /* Three column grid layout within the main content */
 section#main-view {
-    grid-area: "main-view"
+  grid-area: main-view;
 }
 
 section#memory-view {
-    grid-area: "memory-view"
+  grid-area: memory-view;
 }
 
 section#opcode-view {
-    grid-area: "opcode-view"
+  grid-area: opcode-view;
 }
 
 main {
-    display: grid;
-    grid-template:
-    "main-view memory-view opcode-view";
+  display: grid;
+  grid-template:
+    "main-view memory-view opcode-view" auto
+    / 40% 30% 1fr;
+  gap: 1em;
 }
-
 
 /* ======================== */
 /*  Header                  */
 /* ======================== */
 
 header {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5em 1.25em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1.25em;
 }
 
 #app-controls {
-    display: flex;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 
 /* ======================== */
-/*  Main                    */
+/*  Main View               */
 /* ======================== */
 
-#nav-tabs-group {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2.5em;
+section#main-view {
+  gap: 2em;
+  display: flex;
+  flex-flow: column;
 }
 
+#nav-tabs-group {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2.5em;
+}
 
 #nav-tabs-group {
-    padding: 0;
+  padding: 0;
 }
 
 #nav-tabs-group li {
-    list-style-type: none;
+  list-style-type: none;
+}
+
+/* I/O */
+#input,
+#output {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1em;
+}
+
+section#main-tab {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1em;
+}
+
+/* ======================== */
+/*  Memory View             */
+/* ======================== */
+
+section#memory-view {
+  display: flex;
+  /* the gap from the main grid takes care of the spacing */
+  justify-content: flex-start;
+  max-height: 75vh;
+  overflow-y: auto;
+  /* set position relative for sticky buttons on scroll. */
+  position: relative;
+}
+
+section#memory-view .table-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1em;
+  /* max-width: 100%; */
+  flex-grow: 1;
+  max-width: 23em;
+}
+
+.mem-val-container input {
+  width: 100%;
+}
+
+#memory-controls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75em;
+  position: sticky;
+  top: 0;
+}
+
+/* ======================== */
+/*  Opcode View             */
+/* ======================== */
+
+section#opcode-view {
+  overflow: auto;
 }
 
 /* ======================== */
@@ -120,18 +193,38 @@ header {
     margin-bottom: var(--opcode-caption-gap);
 } */
 
+#cpu .table-title {
+  margin-bottom: var(--cpu-caption-gap);
+}
+
 #memory-view .table-title {
-    margin-bottom: var(--mem-caption-gap);
+  margin-bottom: var(--mem-caption-gap);
 }
 
 #opcode-view .table-title {
-    margin-bottom: var(--opcode-caption-gap);
+  margin-bottom: var(--opcode-caption-gap);
+}
+
+#cpu table {
+  border-spacing: var(--cpu-table-horizontal-cell-gap)
+    var(--cpu-table-large-vertical-cell-gap);
 }
 
 #memory-view table {
-    border-spacing: var(--mem-table-horizontal-cell-gap) var(--mem-table-vertical-cell-gap);
+  border-spacing: var(--mem-table-horizontal-cell-gap)
+    var(--mem-table-large-vertical-cell-gap);
 }
 
 #opcode-view table {
-    border-spacing: var(--opcode-table-horizontal-cell-gap) var(--opcode-table-vertical-cell-gap);
+  border-spacing: var(--opcode-table-horizontal-cell-gap)
+    var(--opcode-table-vertical-cell-gap);
+}
+
+.mem-val-container,
+.cpu-val-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.25em;
 }
