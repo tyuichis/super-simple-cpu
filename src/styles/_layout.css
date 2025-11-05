@@ -178,7 +178,9 @@ section#memory-view .table-container {
 /* ======================== */
 
 section#opcode-view {
-  overflow: auto;
+	overflow: auto;
+	padding-left: 1rem;
+	border-left: 1px solid var(--app-border-color);
 }
 
 /* ======================== */
