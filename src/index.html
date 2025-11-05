@@ -36,7 +36,7 @@
           <button id="app-run" class="primary-button">Run</button>
         </div>
       </header>
-      <main>
+      <main class="on-main">
         <section id="main-view">
           <nav id="nav-view">
             <ul id="nav-tabs-group">
@@ -68,6 +68,9 @@
           <section id="main-tab">
             <div id="input">
               <label for="Input">Input</label>
+              <span class="base-10-label"
+                >Decimal: <span id="base-10-input">0</span></span
+              >
               <input type="text" class="large-input" />
             </div>
             <div id="cpu">
@@ -84,7 +87,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td id="reg-label-pc">Program Counter (PC)</td>
+                      <td id="reg-label-pc"><label for="reg-val-pc">Program Counter (PC)</label></td>
                       <td class="cpu-val-container">
                         <span class="base-10-label"
                           >Decimal: <span id="base-10-reg-val-pc">0</span></span
@@ -97,7 +100,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td id="reg-label-acc">Accumulator (acc)</td>
+                      <td id="reg-label-acc"><label for="reg-val-acc">Accumulator (acc)</label></td>
                       <td class="cpu-val-container">
                         <span class="base-10-label"
                           >Decimal:
@@ -111,7 +114,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td id="reg-label-temp">Temp</td>
+                      <td id="reg-label-temp"><label for="reg-val-temp">Temp</label></td>
                       <td class="cpu-val-container">
                         <span class="base-10-label"
                           >Decimal:
@@ -125,7 +128,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td id="reg-label-ir">IR</td>
+                      <td id="reg-label-ir"><label for="reg-label-ir">Instruction Register (IR)</label></td>
                       <td class="cpu-val-container">
                         <span class="base-10-label"
                           >Decimal: <span id="base-10-reg-val-ir">0</span></span
@@ -143,6 +146,9 @@
             </div>
             <div id="output">
               <label for="Output">Output</label>
+              <span class="base-10-label"
+                >Decimal: <span id="base-10-input">0</span></span
+              >
               <input type="text" class="large-input" />
             </div>
           </section>
