@@ -29,10 +29,6 @@ input {
   border-radius: var(--table-border-radius);
 }
 
-#memory-view input {
-  padding: var(--table-input-padding);
-}
-
 /* #opcode-view {
     border-left: 1px solid var(--app-outline-color);
 } */

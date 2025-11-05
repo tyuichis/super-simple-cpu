@@ -63,3 +63,7 @@ select {
     padding: 0.55em;
     max-width: 15em;
 }
+
+#memory-view input {
+  padding: var(--table-input-padding);
+}
