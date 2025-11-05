@@ -2,9 +2,13 @@
     --button-padding: 0.5em 1.5em;
     --primary-button-bg-color: black;
     --primary-button-font-color: white;
+    --primary-button-bg-hover-color: #2E2E2E;
     --secondary-button-bg-color: #F5F5F5;
     --secondary-button-outline: #E5E5E5;
+    --secondary-button-bg-hover-color: #F7F7F7;
     --outline-button-outline: #E5E5E5;
+    --outline-button-bg-hover: #F5F5F5;
+    --destructive-button-bg-color: #E7030B;
     --button-border-radius: 6px;
 
     --select-button-padding: 0.5em 2em 0.5em 0.5em;
@@ -36,15 +40,37 @@
     border: none;
 }
 
+.primary-button:hover {
+    background-color: var(--primary-button-bg-hover-color);
+}
+
 .secondary-button {
     font-weight: 500;
     background-color: var(--secondary-button-bg-color);
     border: 1px solid var(--secondary-button-outline);
 }
 
+.secondary-button:hover {
+    background-color: var(--secondary-button-bg-hover-color);
+}
+
+button {
+    transition: all 0.1s ease-in;
+}
+
+.destructive-button:hover {
+    color: white;
+    background-color: var(--destructive-button-bg-color) !important;
+    border: 1px solid transparent;
+}
+
 .tertiary-button {
     background: none;
     border: 1px solid var(--outline-button-outline);
+}
+
+.tertiary-button:hover {
+    background-color: var(--outline-button-bg-hover);
 }
 
 select {
