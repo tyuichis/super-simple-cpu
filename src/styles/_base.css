@@ -14,6 +14,7 @@
   --table-outline-color: #e5e5e5;
   --table-border-radius: 6px;
   --table-input-padding: 0.35em 0.35em;
+  --secondary-text-font-color: #737373;
   --subtitle-font-color: #737373;
 }
 
@@ -35,7 +36,7 @@ input {
 
 /* Remove weird spacing from the first header in the memory view */
 section#memory-view thead th:first-child {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 /* ======================== */
@@ -59,7 +60,13 @@ body {
   font-size: var(--nav-element-font-size);
 }
 
-.nav-view-button:hover {
+/* Keep track of our current nav view */
+
+.nav-view-button:hover,
+.on-main #view-main-button,
+.on-log-window #view-log-window-button,
+.on-assembly-window #view-assembly-window-button,
+.on-example-list #view-example-list-button {
   text-decoration: underline;
   text-decoration-thickness: 1.75px;
   /* 25% offset? 16px * 0.25 = 4px*/
@@ -138,4 +145,8 @@ tbody tr td:nth-child(3) {
 
 #opcode-view td {
   font-size: var(--monospace-font-size);
+}
+
+#opcode-view td:nth-child(3) {
+  color: var(--secondary-text-font-color);
 }
