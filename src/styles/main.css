@@ -8,6 +8,12 @@
     --app-border-radius: 6px;
 }
 
+@media (prefers-color-scheme:dark) {
+    :root {
+        --app-border-color: #232323;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -23,7 +29,7 @@
 
 /* Main View */
 
-main > section:first-child {
+main > section:not(last-child){
     border-right: 1px solid var(--app-border-color);
 }
 
