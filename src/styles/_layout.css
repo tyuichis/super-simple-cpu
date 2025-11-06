@@ -219,6 +219,11 @@ section#opcode-view {
   margin-bottom: var(--opcode-caption-gap);
 }
 
+section#memory-view, 
+section#memory-view .table-container {
+  overflow: auto;
+}
+
 #cpu table {
   border-spacing: var(--cpu-table-horizontal-cell-gap)
     var(--cpu-table-large-vertical-cell-gap);
