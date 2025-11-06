@@ -3,16 +3,70 @@
     --primary-button-bg-color: black;
     --primary-button-font-color: white;
     --primary-button-bg-hover-color: #2E2E2E;
+    --primary-button-outline: none;
+
     --secondary-button-bg-color: #F5F5F5;
     --secondary-button-outline: #E5E5E5;
     --secondary-button-bg-hover-color: #F7F7F7;
-    --outline-button-outline: #E5E5E5;
-    --outline-button-bg-hover: #F5F5F5;
+    --tertiary-button-outline: #E5E5E5;
+    --tertiary-button-bg-hover: #F5F5F5;
     --destructive-button-bg-color: #E7030B;
+    
     --button-border-radius: 6px;
 
     --select-button-padding: 0.5em 2em 0.5em 0.5em;
     --select-button-border-radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+    --button-font-color: #FAFAFA;
+    --primary-button-bg-color: #151515;
+    --primary-button-font-color: #D4D4D4;
+    --primary-button-bg-hover-color: #1C1C1C;
+    --primary-button-outline: #3E3E3E;
+
+    --secondary-button-bg-color: #262626;
+    --secondary-button-outline: transparent;
+    --secondary-button-bg-hover-color: #212121;
+    
+    --tertiary-button-bg-color: #1C1C1C;
+    --tertiary-button-outline: #3E3E3E;
+    --tertiary-button-bg-hover: #1C1C1C;
+
+    --destructive-button-bg-color: #9E4042;
+
+    --input-bg-color: #151515;
+    --input-outline:#383838 ;
+    --input-font-color: #fff;
+
+    --select-bg-color: #151515;
+    --select-outline: #383838;
+    --select-font-color: #fff;
+
+    --focus-outline: 2px solid #3F3F3F;
+    }
+
+    button {
+        color: var(--button-font-color);
+    }
+
+    input {
+        background-color: var(--input-bg-color);
+        border: 1px solid var(--input-outline);
+        color: var(--input-font-color);
+    }
+
+    select {
+        color: var(--select-font-color);
+        background-color: var(--select-bg-color);
+        border: 1px solid var(--select-outline);
+    }
+
+    *:focus-visible {
+        outline: var(--focus-outline);
+    }
+
 }
 
 /* ======================== */
@@ -37,7 +91,7 @@
 .primary-button {
     color: var(--primary-button-font-color);
     background-color: var(--primary-button-bg-color);
-    border: none;
+    border: 1px solid var(--primary-button-outline);
 }
 
 .primary-button:hover {
@@ -55,7 +109,7 @@
 }
 
 button {
-    transition: all 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
 }
 
 .destructive-button:hover {
@@ -66,16 +120,16 @@ button {
 
 .tertiary-button {
     background: none;
-    border: 1px solid var(--outline-button-outline);
+    border: 1px solid var(--tertiary-button-outline);
 }
 
 .tertiary-button:hover {
-    background-color: var(--outline-button-bg-hover);
+    background-color: var(--tertiary-button-bg-hover);
 }
 
 select {
     background: none;
-    border: 2px solid var(--outline-button-outline);
+    /* border: 2px solid var(--tertiary-button-outline); */
     padding: var(--select-button-padding);
     text-align: left;
     border-radius: var(--select-button-border-radius);
@@ -93,4 +147,53 @@ select {
 #memory-view input,
 #cpu input {
   padding: var(--table-input-padding);
+}
+
+input[readonly] {
+    opacity: 70%;
+}
+
+/* ======================== */
+/*  Status                  */
+/* ======================== */
+
+#app-status-container {
+    display: flex;
+    flex-flow: row-wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2em;
+}
+
+#app-status {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#app-fetch-execute {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+#fetch-execute-counter-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: oklch(66.6% 0.179 58.318);
+    width: 30px;
+    height: 30px;
+    border-radius: 99px;
+}
+
+#fetch-execute-subtitle {
+    font-weight: 500;
+}
+#fetch-execute-counter {
+    font-size: 1.5em;
+    color: black;
 }
