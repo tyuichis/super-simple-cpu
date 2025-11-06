@@ -3,7 +3,7 @@ Get all of the values within the memory cells, convert to JSON string
 then save as a JSON file.
 */
 
-import { formatInput } from "../ui/memoryView.js";
+import { formatMemoryInput } from "../ui/memoryView.js";
 
 function getMemoryCells() {
   // mem-addr-label-[i] : String,
