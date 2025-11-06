@@ -46,7 +46,7 @@
           <button id="app-clear" class="tertiary-button destructive-button">
             Clear
           </button>
-          <button id="app-load" class="secondary-button">Load</button>
+          <button id="app-load" class="secondary-button" type="file">Load</button>
           <button id="app-save" class="secondary-button">Save</button>
           <button id="app-stop" class="secondary-button">Stop</button>
           <button id="app-run" class="primary-button">Run</button>
@@ -85,13 +85,13 @@
             </ul>
           </nav>
           <section id="main-tab">
-            <div id="input">
+            <form id="input">
               <label for="io-input">Input</label>
               <span class="base-10-label"
                 >Decimal: <span id="base-10-input">0</span></span
               >
-              <input type="text" class="large-input" id="io-input" />
-            </div>
+              <input type="text" class="large-input" id="io-input" maxlength="14" />
+            </form>
             <div id="cpu">
               <div class="table-container">
                 <div class="table-title">CPU</div>
@@ -189,9 +189,12 @@
         <section id="memory-view">
           <div class="table-container">
             <div id="memory-controls">
-              <label for="memory-examples">Examples:</label>
+              <label for="memory-examples">Example in use:</label>
               <select name="examples" id="memory-examples">
-                <option value="">1</option>
+                <option value="null"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
               </select>
               <button
                 id="memory-reset-button"
@@ -611,15 +614,15 @@
             <div class="table-title">Opcodes</div>
             <div class="opcode-headers">
               <span id="opcode-table-header-binary">Binary</span>
-              <span class="opcode-delimiter">/</span>
+              <span class="opcode-delimiter">|</span>
               <span id="opcode-table-header-instructions">Instruction</span>
               <!-- <span id="opcode-table-header-explanation">Explanation</span> -->
             </div>
-            <dl class="opcode-list">
+            <dl id="opcode-list">
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-1111">1111</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">STP</code>
                 </dt>
                 <dd>Stop the computer</dd>
@@ -628,16 +631,16 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0001">0001</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">ADD</code>
                 </dt>
-                <dd>Add accumulator to operand</dd>
+                <dd>Add <span class="focus-trigger" data-target="reg-val-acc">accumulator</span> to operand</dd>
               </div>
 
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0010">0010</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">SUB</code>
                 </dt>
                 <dd>Subtract operand from accumulator</dd>
@@ -646,7 +649,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0011">0011</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">LOD</code>
                 </dt>
                 <dd>Load memory cell into accumulator</dd>
@@ -655,7 +658,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0100">0100</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">LDI</code>
                 </dt>
                 <dd>Load immediate into accumulator</dd>
@@ -664,7 +667,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0101">0101</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">STO</code>
                 </dt>
                 <dd>Store accumulator into memory cell</dd>
@@ -673,7 +676,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0110">0110</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">INP</code>
                 </dt>
                 <dd>Input value and store into accumulator</dd>
@@ -682,7 +685,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-0111">0111</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">OUT</code>
                 </dt>
                 <dd>Output the value from accumulator</dd>
@@ -691,7 +694,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-1000">1000</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">JMP</code>
                 </dt>
                 <dd>Jump to instruction</dd>
@@ -700,7 +703,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-1001">1001</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">JNG</code>
                 </dt>
                 <dd>Jump to instruction if accumulator &lt; 0</dd>
@@ -709,7 +712,7 @@
               <div class="opcode-item">
                 <dt>
                   <code id="opcode-bin-1010">1010</code>
-                  <span class="opcode-delimiter">/</span>
+                  <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">JZR</code>
                 </dt>
                 <dd>Jump to instruction if accumulator = 0</dd>
