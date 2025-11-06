@@ -1,29 +1,8 @@
+import { getRawInput, preventNonBinaryDigits } from "./inputDisplay.js";
+
 /* Helper Functions */
 
-function getRawInput(inputString) {
-  return inputString.replaceAll(" ", "");
-}
-
-function preventNonBinaryDigits(rawInput) {
-  /* Returns only the bits as a string
-   */
-
-  // only include 0 or 1
-  let binaryDigits = "";
-
-  for (let i = 0; i < rawInput.length; i++) {
-    if (
-      rawInput[i] === "0" ||
-      rawInput[i] === "1"
-    ) {
-      binaryDigits += rawInput[i];
-    }
-  }
-
-  return binaryDigits;
-}
-
-function formatInput(rawInput) {
+function formatMemoryInput(rawInput) {
   /* Adds a space every 4 digits (max: 3 spaces for a 16 bit number)
    */
   let formattedString = "";
@@ -50,4 +29,50 @@ function convertInputBinaryToDecimal(inputOperandBinary) {
   }
 }
 
-export { getRawInput, preventNonBinaryDigits, formatInput, convertInputBinaryToDecimal };
+function displayMemorySubtitles(
+  inputInstructionBinary,
+  inputOperandBinary,
+  instructionElement,
+  OPCODES
+) {
+  /* Displays OPCODE and decimal value underneath the memory value input.
+   */
+
+  const decimalValue =
+    inputOperandBinary.length == 12
+      ? convertInputBinaryToDecimal(inputOperandBinary)
+      : "";
+
+  if (inputInstructionBinary.length < 4) {
+    instructionElement.textContent = "";
+  }
+
+  // Display the OP code as a subtitle
+  if (
+    inputInstructionBinary.length == 4 &&
+    OPCODES.has(inputInstructionBinary)
+  ) {
+    instructionElement.textContent = `${OPCODES.get(
+      inputInstructionBinary
+    )} ${decimalValue}`;
+  } else if (inputInstructionBinary.length == 4) {
+    instructionElement.textContent = "Invalid Opcode";
+  } else {
+    instructionElement.textContent = "";
+  }
+}
+
+// Not needed, as base 10 label is redundant since the decimal
+// value shows up within the memory subtitle
+// function updateMemoryDecimal() {
+//   /* Updates the decimal labels to the correct value.
+//    */
+// }
+
+export {
+  getRawInput,
+  preventNonBinaryDigits,
+  formatMemoryInput,
+  convertInputBinaryToDecimal,
+  displayMemorySubtitles,
+};
