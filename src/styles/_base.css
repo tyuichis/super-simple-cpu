@@ -1,21 +1,22 @@
 :root {
   --page-bg-color: white;
   --default-font-color: black;
+  --input-placeholder-font-color: black;
 
-  --primary-font: "Inter", -apple-system, BlinkMacSystemFont, avenir next,
-    avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto,
-    noto, helvetica, arial, sans-serif;
-  --monospace-font: "JetBrains Mono", monospace;
+  --primary-font: "Geist Sans", "Inter", -apple-system, BlinkMacSystemFont,
+    avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell,
+    Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  --monospace-font: "Geist Mono", "JetBrains Mono", monospace;
   /* 20px target / 16px root = 1.25em */
-  --app-title-font-size: 1.15em;
-  --h2-font-size: 1.25em;
-  --button-font-size: 1em;
-  --table-header-font-size: 1.15em;
-  --io-label-font-size: 1.25em;
-  --nav-element-font-size: 0.95em;
-  --cpu-label-font-size: 0.95em;
+  --app-title-font-size: 1.15rem;
+  --h2-font-size: 1.25rem;
+  --button-font-size: 1rem;
+  --table-header-font-size: 0.85rem;
+  --io-label-font-size: 1.25rem;
+  --nav-element-font-size: 0.95rem;
+  --cpu-label-font-size: 0.95rem;
   /* 12px target /16px root = 0.75em */
-  --monospace-font-size: 0.75em;
+  --monospace-font-size: 0.75rem;
   --app-outline-color: #e5e5e5;
   --table-outline-color: #e5e5e5;
   --table-border-radius: 6px;
@@ -24,6 +25,21 @@
   --subtitle-font-color: #737373;
 
   --relaxed-line-height: 1.625;
+  --inline-code-bg-color: #f9f9f9;
+  --inline-code-border-color: #d1d1d1;
+
+  --inline-code-border-radius: 0.25em;
+  --inline-code-padding-block: 0.2em;
+  --inline-code-padding-inline: 0.3rem;
+
+  --dd-font-size: 0.85rem;
+
+  --small-font-size: 0.875rem;
+
+  --active-nav-tab-font-color: black;
+  --inactive-nav-tab-font-color: #737373;
+
+  --input-placeholder-font-color-disabled: #737373;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,11 +51,27 @@
     --secondary-text-font-color: #cacaca;
     --subtitle-font-color: #fff;
     --table-outline-color: #383838;
+    /* --inline-code-bg-color: #262626; */
+    --inline-code-bg-color: transparent;
+    --inline-code-border-color: #3c4145;
+    --inline-code-font-color: #a1a1a1;
+
+    --active-nav-tab-font-color: #fff;
+    --inactive-nav-tab-font-color: #989898;
+
+    --input-placeholder-font-color: #A1A1A1;
+    --input-placeholder-font-color-disabled: #5B5B5B;
+
+    --disabled-input-font-color: #595959;
   }
 
   #opcode-view table {
     border: 1px solid var(--table-outline-color);
     border-radius: var(--table-border-radius);
+  }
+
+  code {
+    color: var(--inline-code-font-color);
   }
 }
 
@@ -70,6 +102,13 @@ input {
   border-radius: var(--table-border-radius);
 }
 
+/* empty memory cells should be a bit dimmer. */
+#memory-view input:empty::placeholder,
+input[readonly]::placeholder,
+input [disabled]::placeholder {
+    color: var(--input-placeholder-font-color-disabled);
+}
+
 /* #opcode-view {
     border-left: 1px solid var(--app-outline-color);
 } */
@@ -83,6 +122,19 @@ section#memory-view thead th:first-child {
   content: "●";
   padding-right: 0.35em;
 }
+
+.current-address::before {
+  content: "●";
+  padding-right: 0.5em;
+  color: orange;
+  font-size: 0.85em;
+  animation: 1.75s ease-in 1s infinite reverse both slow-dot-pulse;
+}
+
+#log-window-tab textarea::placeholder {
+  font-family: var(--primary-font);
+}
+
 
 /* ======================== */
 /*  Typography              */
@@ -103,6 +155,7 @@ body {
 .nav-view-button {
   font-weight: 500;
   font-size: var(--nav-element-font-size);
+  color: var(--inactive-nav-tab-font-color);
 }
 
 /* Keep track of our current nav view */
@@ -112,10 +165,32 @@ body {
 .on-log-window #view-log-window-button,
 .on-assembly-window #view-assembly-window-button,
 .on-example-list #view-example-list-button {
+  color: var(--active-nav-tab-font-color);
   text-decoration: underline;
   text-decoration-thickness: 1.75px;
   /* 25% offset? 16px * 0.25 = 4px*/
   text-underline-offset: 4px;
+}
+
+/* Inline-code prettier */
+
+code {
+  font-size: var(--monospace-font-size);
+  padding-block: var(--inline-code-padding-block);
+  padding-inline: var(--inline-code-padding-inline);
+  background: var(--inline-code-bg-color);
+  border-radius: var(--inline-code-border-radius);
+  border: 1px solid var(--inline-code-border-color);
+  font-family: var(--monospace-font);
+  font-optical-sizing: auto;
+}
+
+input {
+  font-family: var(--monospace-font);
+}
+
+input::placeholder {
+    color: var(--input-placeholder-font-color);
 }
 
 /* Buttons */
@@ -163,7 +238,8 @@ th {
 }
 
 .table-description {
-    line-height: var(--relaxed-line-height);
+  line-height: var(--relaxed-line-height);
+  font-size: var(--small-font-size);
 }
 
 /* CPU Table */
@@ -187,7 +263,7 @@ th {
   text-align: left;
 }
 
-/* Opcode Table */
+/* Opcode View */
 
 #opcode-table-header-binary,
 tbody tr td:nth-child(1) {
@@ -204,17 +280,35 @@ tbody tr td:nth-child(3) {
   text-align: left;
 }
 
-#opcode-view code {
-  font-family: var(--monospace-font);
-  font-optical-sizing: auto;
-}
-
 #opcode-view td {
   font-size: var(--monospace-font-size);
 }
 
 #opcode-view td:nth-child(3) {
   color: var(--secondary-text-font-color);
+}
+
+#opcode-list dd {
+  font-size: var(--dd-font-size);
+}
+
+/* Memory Data Format Table */
+
+#memory-data-format-table th,
+#memory-data-format-table td {
+  text-align: left;
+}
+
+#memory-data-format-table th {
+  padding-bottom: 1em;
+}
+
+#memory-data-format-table td:nth-child(odd) {
+  padding-right: 1em;
+}
+
+.memory-data-format-explanation {
+  font-size: var(--dd-font-size);
 }
 
 /* App Status */
@@ -224,17 +318,27 @@ tbody tr td:nth-child(3) {
   font-size: var(--monospace-font-size);
 }
 
+/* Interactive Text */
+
+.focus-trigger {
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: #e5e5e5;
+  text-decoration-offset: 2px;
+}
+
 /* ======================== */
 /*  Animations              */
 /* ======================== */
 
-@keyframes pulse {
+@keyframes pulse-blue {
   0% {
     background: inherit;
   }
 
   50% {
-    background: oklch(45% 0.085 224.283);
+    background: #0ea5e9;
   }
 
   100% {
@@ -242,6 +346,20 @@ tbody tr td:nth-child(3) {
   }
 }
 
-.pulse {
-  animation: pulse 0.75s ease-in-out;
+.pulse-blue {
+  animation: pulse-blue 0.65s ease-out;
+}
+
+@keyframes slow-dot-pulse {
+  0% {
+    opacity: 40%;
+  }
+
+  50% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 40%;
+  }
 }
