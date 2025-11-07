@@ -1,6 +1,8 @@
 /* Uses the File System API to load a JSON file containing our memory cell
  */
 
+import { MEMORY_SIZE } from "./constants.js";
+
 async function getJSONSaveData() {
   try {
     if ("showOpenFilePicker" in window) {
@@ -68,7 +70,7 @@ async function loadMemory() {
   try {
     const memoryCells = await getJSONSaveData();
 
-    for (let i = 0; i <= 15; i++) {
+    for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
       const memAddrLabel = document.getElementById(`mem-addr-label-${i}`);
       const memAddr = document.getElementById(`mem-addr-${i}`);
       const memVal = document.getElementById(`mem-val-${i}`);
