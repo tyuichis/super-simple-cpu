@@ -6,8 +6,12 @@
     <title>Super Simple CPU</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <!-- <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap"
       rel="stylesheet"
     />
     <script type="module" src="js/main.js" defer></script>
@@ -46,13 +50,19 @@
           <button id="app-clear" class="tertiary-button destructive-button">
             Clear
           </button>
-          <button id="app-load" class="secondary-button" type="file">Load</button>
-          <button id="app-save" class="secondary-button">Save</button>
-          <button id="app-stop" class="secondary-button">Stop</button>
-          <button id="app-run" class="primary-button">Run</button>
-          <button id="memory-next-step-button" class="secondary-button">
-            Next Step
+          <button id="app-load" class="secondary-button" type="file">
+            Load
           </button>
+          <button id="app-save" class="secondary-button">Save</button>
+          <button
+            id="cpu-reset-button"
+            class="secondary-button destructive-button"
+          >
+            Restart
+          </button>
+          <button id="app-stop" class="secondary-button">Stop</button>
+          <button id="app-run" class="primary-button">Auto Run</button>
+          <button id="cta-button" class="secondary-button">Next Step</button>
         </div>
       </header>
       <main class="on-main">
@@ -85,12 +95,27 @@
             </ul>
           </nav>
           <section id="main-tab">
+            <!-- <div id="cpu-controls">
+              <button
+                id="cpu-reset-button"
+                class="secondary-button destructive-button"
+              >
+                Restart
+              </button>
+            </div> -->
             <form id="input">
               <label for="io-input">Input</label>
-              <span class="base-10-label"
+              <!-- <span class="base-10-label"
                 >Decimal: <span id="base-10-input">0</span></span
-              >
-              <input type="text" class="large-input" id="io-input" maxlength="14" />
+              > -->
+              <input
+                type="text"
+                class="large-input"
+                id="io-input"
+                maxlength="14"
+                placeholder="0"
+              />
+              <span id="io-input-asm" class="instruction-label"></span>
             </form>
             <div id="cpu">
               <div class="table-container">
@@ -110,15 +135,20 @@
                         <label for="reg-val-pc">Program Counter (PC)</label>
                       </td>
                       <td class="cpu-val-container">
-                        <span class="base-10-label"
+                        <!-- <span class="base-10-label"
                           >Decimal: <span id="base-10-reg-val-pc">0</span></span
-                        >
+                        > -->
                         <input
                           type="text"
                           id="reg-val-pc"
                           aria-labelledby="reg-label-pc"
                           readonly
+                          placeholder="0000 0000 0000"
                         />
+                        <span
+                          id="reg-val-pc-asm"
+                          class="instruction-label"
+                        ></span>
                       </td>
                     </tr>
                     <tr>
@@ -126,16 +156,21 @@
                         <label for="reg-val-acc">Accumulator (acc)</label>
                       </td>
                       <td class="cpu-val-container">
-                        <span class="base-10-label"
+                        <!-- <span class="base-10-label"
                           >Decimal:
                           <span id="base-10-reg-val-acc">0</span></span
-                        >
+                        > -->
                         <input
                           type="text"
                           id="reg-val-acc"
                           aria-labelledby="reg-label-acc"
                           readonly
+                          placeholder="0000 0000 0000"
                         />
+                        <span
+                          id="reg-val-acc-asm"
+                          class="instruction-label"
+                        ></span>
                       </td>
                     </tr>
                     <tr>
@@ -143,16 +178,21 @@
                         <label for="reg-val-temp">Temp</label>
                       </td>
                       <td class="cpu-val-container">
-                        <span class="base-10-label"
+                        <!-- <span class="base-10-label"
                           >Decimal:
                           <span id="base-10-reg-val-temp">0</span></span
-                        >
+                        > -->
                         <input
                           type="text"
                           id="reg-val-temp"
                           aria-labelledby="reg-label-temp"
                           readonly
+                          placeholder="0000 0000 0000"
                         />
+                        <span
+                          id="reg-val-temp-asm"
+                          class="instruction-label"
+                        ></span>
                       </td>
                     </tr>
                     <tr>
@@ -162,15 +202,20 @@
                         >
                       </td>
                       <td class="cpu-val-container">
-                        <span class="base-10-label"
+                        <!-- <span class="base-10-label"
                           >Decimal: <span id="base-10-reg-val-ir">0</span></span
-                        >
+                        > -->
                         <input
                           type="text"
                           id="reg-val-ir"
                           aria-labelledby="reg-label-ir"
                           readonly
+                          placeholder="0000 0000 0000"
                         />
+                        <span
+                          id="reg-val-ir-asm"
+                          class="instruction-label"
+                        ></span>
                       </td>
                     </tr>
                   </tbody>
@@ -179,11 +224,29 @@
             </div>
             <div id="output">
               <label for="io-output">Output</label>
-              <span class="base-10-label"
+              <!-- <span class="base-10-label"
                 >Decimal: <span id="base-10-input">0</span></span
-              >
-              <input type="text" class="large-input" id="io-output" readonly />
+              > -->
+              <input
+                type="text"
+                class="large-input"
+                id="io-output"
+                readonly
+                placeholder="0"
+              />
+              <span id="io-output-asm" class="instruction-label"></span>
             </div>
+          </section>
+          <section id="log-window-tab">
+            <h2>Log Window</h2>
+            <!-- 16 rows by default as that's the current memory size. -->
+            <textarea name="log-window" id="log-window" rows="16" placeholder="Executed instructions will appear here." readonly></textarea>
+          </section>
+          <section id="assembly-window-tab">
+            <h2>Assembly Window</h2>
+          </section>
+          <section id="example-list-tab">
+            <h2>Example List</h2>
           </section>
         </section>
         <section id="memory-view">
@@ -195,26 +258,46 @@
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
-              <button
+              <!-- <button
                 id="memory-reset-button"
                 class="secondary-button destructive-button"
               >
                 Reset
-              </button>
+              </button> -->
               <!-- <button id="memory-next-step-button" class="secondary-button">
                 Next Step
               </button> -->
             </div>
             <div class="table-title">RAM</div>
             <p class="table-description">
-              The first 4 leading bits correspond to the opcode. The remaining
-              12 bits correspond to the operand. Operands as numerical inputs
-              use 12-bit two's complement integers.
+              The <strong>maximum size</strong> of each memory location is 16
+              bits. The first 4 leading bits correspond to the
+              <strong>opcode</strong>. The remaining 12 bits correspond to the
+              <strong>operand</strong>. Operands as immediate values use 12-bit
+              two's complement integers.
 
               <!-- When the operand is treated as a raw data value, it is interpreted as 14-bit two's complement. -->
             </p>
-            <table>
+            <table id="memory-data-format-table">
+              <caption>
+                Memory Data Format
+              </caption>
+              <tr>
+                <th><code>0000</code></th>
+                <th><code>0000 0000 0000</code></th>
+              </tr>
+              <tr>
+                <td class="memory-data-format-explanation">Instruction</td>
+                <td class="memory-data-format-explanation">
+                  Operand (as value AT memory address, or as immediate value)
+                </td>
+              </tr>
+            </table>
+            <table id="memory-table">
               <!-- <caption>
                   Memory
                 </caption> -->
@@ -222,7 +305,9 @@
                 <tr>
                   <th scope="col" id="memory-table-header-label">Label</th>
                   <th scope="col" id="memory-table-header-address">Address</th>
-                  <th scope="col" id="memory-table-header-value">Value</th>
+                  <th scope="col" id="memory-table-header-value">
+                    Binary Data
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -614,7 +699,7 @@
             <div class="table-title">Opcodes</div>
             <div class="opcode-headers">
               <span id="opcode-table-header-binary">Binary</span>
-              <span class="opcode-delimiter">|</span>
+              <span class="opcode-delimiter">/</span>
               <span id="opcode-table-header-instructions">Instruction</span>
               <!-- <span id="opcode-table-header-explanation">Explanation</span> -->
             </div>
@@ -634,7 +719,13 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">ADD</code>
                 </dt>
-                <dd>Add <span class="focus-trigger" data-target="reg-val-acc">accumulator</span> to operand</dd>
+                <dd>
+                  Add
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                  to operand
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -643,7 +734,12 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">SUB</code>
                 </dt>
-                <dd>Subtract operand from accumulator</dd>
+                <dd>
+                  Subtract operand from
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -652,7 +748,12 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">LOD</code>
                 </dt>
-                <dd>Load memory cell into accumulator</dd>
+                <dd>
+                  Load value stored at a memory address into
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -661,7 +762,12 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">LDI</code>
                 </dt>
-                <dd>Load immediate into accumulator</dd>
+                <dd>
+                  Load immediate value into
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -670,7 +776,13 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">STO</code>
                 </dt>
-                <dd>Store accumulator into memory cell</dd>
+                <dd>
+                  Store
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                  into a memory cell at an address
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -679,7 +791,12 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">INP</code>
                 </dt>
-                <dd>Input value and store into accumulator</dd>
+                <dd>
+                  Input value and store into
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -688,7 +805,12 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">OUT</code>
                 </dt>
-                <dd>Output the value from accumulator</dd>
+                <dd>
+                  Output the value from
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -706,7 +828,13 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">JNG</code>
                 </dt>
-                <dd>Jump to instruction if accumulator &lt; 0</dd>
+                <dd>
+                  Jump to instruction if
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                  &lt; 0
+                </dd>
               </div>
 
               <div class="opcode-item">
@@ -715,7 +843,22 @@
                   <!-- <span class="opcode-delimiter">/</span> -->
                   <code class="opcode-instruction">JZR</code>
                 </dt>
-                <dd>Jump to instruction if accumulator = 0</dd>
+                <dd>
+                  Jump to instruction if
+                  <span class="focus-trigger" data-target="reg-val-acc"
+                    >accumulator</span
+                  >
+                  = 0
+                </dd>
+              </div>
+
+              <div class="opcode-item">
+                <dt>
+                  <code id="opcode-bin-0000">0000</code>
+                  <!-- <span class="opcode-delimiter">/</span> -->
+                  <code class="opcode-instruction">DAT</code>
+                </dt>
+                <dd>No instruction; this is just binary <em>DAT</em>a.</dd>
               </div>
             </dl>
           </div>
