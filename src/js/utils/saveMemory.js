@@ -4,6 +4,7 @@ then save as a JSON file.
 */
 
 import { formatMemoryInput } from "../ui/memoryView.js";
+import { MEMORY_SIZE } from "./constants.js";
 
 function getMemoryCells() {
   // mem-addr-label-[i] : String,
@@ -13,8 +14,7 @@ function getMemoryCells() {
   // need to format mem-val-[i] to remove the spaces
 
   const memory = [];
-
-  for (let i = 0; i <= 15; i++) {
+  for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
     const memAddrLabel = document.getElementById(`mem-addr-label-${i}`);
     const memAddr = document.getElementById(`mem-addr-${i}`);
     const memVal = document.getElementById(`mem-val-${i}`);
