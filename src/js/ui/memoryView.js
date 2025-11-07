@@ -1,5 +1,7 @@
 import { getRawInput, preventNonBinaryDigits } from "./inputDisplay.js";
 
+import { OPCODES, MEMORY_SIZE } from "../utils/constants.js";
+
 /* Helper Functions */
 
 function formatMemoryInput(rawInput) {
@@ -29,17 +31,37 @@ function convertInputBinaryToDecimal(inputOperandBinary) {
   }
 }
 
-function displayMemorySubtitles(
-  inputInstructionBinary,
-  inputOperandBinary,
-  instructionElement,
-  OPCODES
-) {
+function displayMemorySubtitle(idIndex) {
   /* Displays OPCODE and decimal value underneath the memory value input.
+
+  @idIndex is the hardcoded id of the memory cell, i.e.
+
+  mem-val-${i}
+  mem-val-${i}-asm
+
+  In general, display OPcode with status:
+  Valid OPcode OR invalid Opcode
+  Else hide.
+
+  In general, display operand when:
+  Valid OPCode AND OPcode expects operand
+  ELSE hide.
+
+    If 0000 0000 0000 0000 → Display nothing; default state (no OPcode, operand)
+    If 0000 0000 0000 0001 → Display DAT 1 (no OPcode)
+    If 1111 0000 0000 0001 → Display STP (Valid OPcode, but does not expect operand; ignore operand)
+    If 0001 0000 0000 0001 → Display ADD 1 (Valid OPcode, include operand)
    */
 
+  const instructionElement = document.getElementById(`mem-val-${idIndex}-asm`);
+  const memoryVal = document.getElementById(`mem-val-${idIndex}`);
+  const rawInput = getRawInput(memoryVal.value);
+  const inputInstructionBinary = rawInput.slice(0, 4);
+  const inputOperandBinary = rawInput.slice(4);
+
   const decimalValue =
-    inputOperandBinary.length == 12
+  // Subtract 4 leading bits from the length.
+    inputOperandBinary.length == MEMORY_SIZE - 4
       ? convertInputBinaryToDecimal(inputOperandBinary)
       : "";
 
@@ -74,5 +96,5 @@ export {
   preventNonBinaryDigits,
   formatMemoryInput,
   convertInputBinaryToDecimal,
-  displayMemorySubtitles,
+  displayMemorySubtitle,
 };
