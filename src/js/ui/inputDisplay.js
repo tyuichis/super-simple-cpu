@@ -30,14 +30,16 @@ function addBinaryPadding(binaryRawInput) {
 
   let binaryPaddedString = "";
 
-  binaryRawInput.forEach((char, index) => {
+  for (let i = 0; i < binaryRawInput.length; i++) {
     // Don't include a space in the beginning or end.
-    if (index != 0 && index % 4 === 0 && index !== binaryRawInput.length - 1) {
-      binaryPaddedString += " ";
+    if (i !== 0 && i % 4 === 0 && i !== binaryRawInput.length - 1) {
+      binaryPaddedString += ` ${binaryRawInput[i]}`;
     } else {
-      binaryPaddedString += char;
+      binaryPaddedString += binaryRawInput[i];
     }
-  });
+  }
+
+  return binaryPaddedString;
 }
 
-export { getRawInput, preventNonBinaryDigits };
+export { getRawInput, preventNonBinaryDigits, addBinaryPadding };
