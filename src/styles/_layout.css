@@ -72,9 +72,14 @@ section#opcode-view {
 
 main {
   display: grid;
+  /* original spacing */
+  /* grid-template:
+    "main-view memory-view opcode-view" auto
+    / 40% 30% 1fr; */
+
   grid-template:
     "main-view memory-view opcode-view" auto
-    / 40% 30% 1fr;
+    / 30% 50% 1fr;
   gap: 1em;
 }
 
@@ -130,6 +135,25 @@ main {
   list-style-type: none;
 }
 
+#main-tab,
+#log-window-tab,
+#assembly-window-tab,
+#example-list-tab {
+  display: none;
+}
+
+.on-main #main-tab,
+.on-log-window #log-window-tab,
+.on-assembly-window #assembly-window-tab,
+.on-example-list #example-list-tab {
+  /* default to flex */
+  display: flex;
+}
+
+/* ======================== */
+/*  Main Tab                */
+/* ======================== */
+
 /* I/O */
 #input,
 #output {
@@ -139,10 +163,34 @@ main {
 }
 
 section#main-tab {
-  display: flex;
   flex-flow: column nowrap;
   gap: 1em;
 }
+
+#cpu-controls {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75em;
+  position: sticky;
+  top: 0;
+}
+
+/* ======================== */
+/*  Log Window Tab          */
+/* ======================== */
+
+#log-window-tab {
+  flex-flow: column wrap;
+}
+/* ======================== */
+/*  Assembly Tab            */
+/* ======================== */
+
+/* ======================== */
+/*  Example List Tab        */
+/* ======================== */
 
 /* ======================== */
 /*  Memory View             */
@@ -175,12 +223,21 @@ section#memory-view .table-container {
 
 #memory-controls {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: flex-end;
   align-items: center;
   gap: 0.75em;
   position: sticky;
   top: 0;
+}
+
+#memory-view .base-10-label {
+  visibility: hidden;
+}
+
+#memory-data-format-table caption {
+  text-align: left;
+  padding-bottom: 1em;
 }
 
 /* ======================== */
@@ -189,6 +246,29 @@ section#memory-view .table-container {
 
 section#opcode-view {
   overflow: auto;
+}
+
+.opcode-headers {
+  margin-bottom: 1.5em;
+}
+
+#opcode-list {
+  margin-top: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.25em;
+}
+
+.opcode-item:not(:last-child) {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.75em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--app-border-color);
+}
+
+.opcode-item dd {
+  padding: 0.5em 0 1em 0;
 }
 
 /* ======================== */
@@ -219,7 +299,7 @@ section#opcode-view {
   margin-bottom: var(--opcode-caption-gap);
 }
 
-section#memory-view, 
+section#memory-view,
 section#memory-view .table-container {
   overflow: auto;
 }
@@ -234,8 +314,12 @@ section#memory-view .table-container {
     var(--mem-table-large-vertical-cell-gap);
 } */
 
-#memory-view table {
+#memory-table {
   padding: 1em 1em 0 1em;
+}
+
+#memory-data-format-table {
+  padding: 1em;
 }
 
 #opcode-view table {
