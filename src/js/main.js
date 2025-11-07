@@ -1,35 +1,74 @@
+//  TO-DO: Fix input cursor jankiness (QoL) for inputs that format text:
+// → memoryView, io-input...
+
+// TO-DO: On next step button execution, create an anchor link w/ fragment id
+// and click on it to force the viewport to jump to the correct address.
+
 import { displayFormattedIOInput } from "./ui/io-input.js";
+
+import { displayExample } from "./ui/loadExample.js";
+
+import { displayTabView } from "./ui/tabView.js";
 
 import {
   formatMemoryInput,
   getRawInput,
   convertInputBinaryToDecimal,
-  displayMemorySubtitles,
+  displayMemorySubtitle,
   preventNonBinaryDigits,
 } from "./ui/memoryView.js";
 
 import { getMemoryCells, saveMemoryFile } from "./utils/saveMemory.js";
 import { getJSONSaveData, loadMemory } from "./utils/loadMemory.js";
-import { clearApp } from "./utils/clearApp.js";
+import {
+  clearIO,
+  clearMemory,
+  clearCPURegisters,
+  clearApp,
+} from "./utils/clearApp.js";
 
-// variables
-const OPCODES = new Map([
-  ["1111", "STP"],
-  ["0001", "ADD"],
-  ["0010", "SUB"],
-  ["0011", "LOD"],
-  ["0101", "STO"],
-  ["0110", "INP"],
-  ["0111", "OUT"],
-  ["1000", "JMP"],
-  ["1001", "JNG"],
-  ["1010", "JZR"],
-]);
+// TO-DO: Refactor OPCODES to be only called within the function that calls it (i.e. memoryView)
+import { OPCODES, MEMORY_SIZE } from "./utils/constants.js";
+
+import { EXAMPLE_LIST } from "./utils/exampleList.js";
+
+/*
+Variables
+*/
 
 // memory labels defined by user or examples
 const LABELS = new Map();
 
-// setup eventListeners
+/*
+eventListeners
+*/
+
+// Load Examples eventListeners
+
+const exampleOptionSelector = document.getElementById("memory-examples");
+
+exampleOptionSelector.addEventListener("change", (e) => {
+  const optionValue = e.target.value;
+  if (optionValue !== 0) {
+    clearMemory();
+
+    const selectedExample = EXAMPLE_LIST[optionValue - 1];
+
+    displayExample(selectedExample);
+
+    // Same memory view update.
+
+    for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
+      const memoryVal = document.getElementById(`mem-val-${i}`);
+      const rawInput = getRawInput(memoryVal.value);
+
+      // update the memory cell formatting.
+      memoryVal.value = formatMemoryInput(rawInput);
+      // update the subtitle based on the new memory cell value
+      displayMemorySubtitle(i);
+    }
+  }
+});
 
 // Saving
 
@@ -50,14 +89,26 @@ saveButton.addEventListener("click", async () => {
 
 const loadButton = document.getElementById("app-load");
 
-loadButton.addEventListener("click", () => {
-  loadMemory();
+loadButton.addEventListener("click", async () => {
+  try {
+    // wait for JSON load to finish
+    await loadMemory();
+
+    // then update our input fields in the memoryView
+
+    for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
+      displayMemorySubtitle(i);
+    }
+  } catch (error) {
+    console.error(`Something wrong happened while loading memory: ${error}`);
+  }
 });
 
+// Clear app memory eventListener
 const clearButton = document.getElementById("app-clear");
 clearButton.addEventListener("click", () => {
   const userConsent = window.confirm(
-    "Do you really want to clear the WHOLE app? Resets to default."
+    "Do you really want to clear the app's memory?"
   );
 
   if (userConsent) {
@@ -67,15 +118,15 @@ clearButton.addEventListener("click", () => {
 
 // IO eventListeners
 
-const ioInputButton = document.getElementById('io-input');
+const ioInputButton = document.getElementById("io-input");
 
-ioInputButton.addEventListener('input', (e) => {
-    // pass the element directly into the formatter.
-    displayFormattedIOInput(e.target);
-})
+ioInputButton.addEventListener("input", (e) => {
+  // pass the element directly into the formatter.
+  displayFormattedIOInput(e.target);
+});
 
 // Memory View eventListeners
-for (let i = 0; i <= 15; i++) {
+for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
   const inputElement = document.getElementById(`mem-val-${i}`);
 
   inputElement.addEventListener("input", (e) => {
@@ -88,17 +139,7 @@ for (let i = 0; i <= 15; i++) {
     e.target.value = formattedString;
 
     // Display the decoded instruction as a subtitle
-
-    const instructionElement = document.getElementById(`mem-val-${i}-asm`);
-    const inputInstructionBinary = rawInput.slice(0, 4);
-    const inputOperandBinary = rawInput.slice(4);
-
-    displayMemorySubtitles(
-      inputInstructionBinary,
-      inputOperandBinary,
-      instructionElement,
-      OPCODES
-    );
+    displayMemorySubtitle(i);
   });
 }
 
@@ -108,27 +149,33 @@ for (let i = 0; i <= 15; i++) {
 
 Example: clicking on 'accumulator' within an OPcode explanation, focuses on the actual accumulator input
  */
+
+// TO-DO: Refactor/remake this test code. I don't remember adding this. Copilot may have modified the original accidentally??
 document.querySelectorAll(".focus-trigger").forEach((trigger) => {
   trigger.addEventListener("click", () => {
     const targetId = trigger.dataset.target;
     const targetElement = document.getElementById(targetId);
 
-    // Remove class first (in case it's already animating)
     targetElement.classList.remove("pulse-blue");
 
-    // Force reflow to restart animation
     void targetElement.offsetWidth;
 
-    // Add it back
     targetElement.classList.add("pulse-blue");
 
-    // Remove after animation completes
     targetElement.addEventListener(
       "animationend",
       () => {
         targetElement.classList.remove("pulse-blue");
       },
       { once: true }
-    ); // { once: true } auto-removes the listener
+    );
+  });
+});
+
+// Navigation tab eventListener
+
+document.querySelectorAll("#nav-view button").forEach((tabButton) => {
+  tabButton.addEventListener("click", (e) => {
+    displayTabView(e.target);
   });
 });
