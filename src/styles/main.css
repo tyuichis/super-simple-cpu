@@ -1,40 +1,43 @@
-@import '_base.css';
-@import '_components.css';
-@import '_layout.css';
-@import '_theme.css';
-
-:root {
-    --app-border-color: #E5E5E5;
-    --app-border-radius: 6px;
-}
-
-@media (prefers-color-scheme:dark) {
-    :root {
-        --app-border-color: #232323;
-    }
-}
+@import "_variables.css";
+@import "_base.css";
+@import "_components.css";
+@import "_bus-diagram.css";
+@import "_control-panel.css";
+@import "_onboarding.css";
+@import "_layout.css";
+@import "_theme.css";
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* ======================== */
 /*  Global App Appearance   */
 /* ======================== */
 
+html {
+  font-size: var(--global-font-size-default);
+}
+
 #app-wrapper {
-    border: 1px solid var(--app-border-color);
-    border-radius: var(--app-border-radius);
+  border: 1px solid var(--app-border-color);
+  border-radius: var(--app-border-radius);
 }
 
 /* Main View */
 
-main > section:not(last-child){
-    border-right: 1px solid var(--app-border-color);
+main > section:not(:last-child) {
+  border-right: 1px solid var(--app-border-color);
 }
-
 
 header {
-    border-bottom: 1px solid var(--app-border-color);
-    border-radius: var(--app-border-color) var(--app-border-color) 0 0;
+  border-bottom: 1px solid var(--app-border-color);
+  border-radius: var(--app-border-color) var(--app-border-color) 0 0;
 }
+
+/* Normalise small fonts on Safari... but it doesn't work anyways lol */
+/* @supports (font-size: clamp(1rem, 1vw, 1rem)) {
+  html {
+    font-size: clamp(15px, 1rem, 17px);
+  }
+} */
