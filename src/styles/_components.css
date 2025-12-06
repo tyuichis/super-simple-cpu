@@ -1,66 +1,4 @@
-:root {
-  --button-padding: 0.5em 1.5em;
-  --primary-button-bg-color: black;
-  --primary-button-font-color: white;
-  --primary-button-bg-hover-color: #2e2e2e;
-  --primary-button-outline: none;
-
-  --secondary-button-bg-color: #f5f5f5;
-  --secondary-button-outline: #e5e5e5;
-  --secondary-button-bg-hover-color: #f7f7f7;
-  --tertiary-button-outline: #e5e5e5;
-  --tertiary-button-bg-hover: #f5f5f5;
-  --destructive-button-bg-color: #e7030b;
-
-  --button-border-radius: 6px;
-
-  --select-button-padding: 0.5em 2em 0.5em 0.5em;
-  --select-button-border-radius: 6px;
-
-  --cta-button-bg-color: oklch(66.6% 0.179 58.318);
-  --cta-button-hover-bg-color: oklch(0.55 0.17 38);
-
-  --fetch-execute-counter-font-size: 0.95rem;
-  --fetch-execute-counter-font-color: black;
-  --fetch-execute-circle-border: 1px solid black;
-}
-
 @media (prefers-color-scheme: dark) {
-  :root {
-    --button-font-color: #fafafa;
-    --primary-button-bg-color: #151515;
-    --primary-button-font-color: #d4d4d4;
-    --primary-button-bg-hover-color: #1c1c1c;
-    --primary-button-outline: #3e3e3e;
-
-    --secondary-button-bg-color: #262626;
-    --secondary-button-outline: transparent;
-    --secondary-button-bg-hover-color: #212121;
-
-    --tertiary-button-bg-color: #1c1c1c;
-    --tertiary-button-outline: #3e3e3e;
-    --tertiary-button-bg-hover: #1c1c1c;
-
-    --destructive-button-bg-color: #9e4042;
-    --cta-button-bg-color: oklch(66.6% 0.179 58.318);
-    --cta-button-hover-bg-color: oklch(0.55 0.17 38);
-
-    --input-bg-color: #151515;
-    --input-outline: #383838;
-    --input-font-color: #fff;
-
-    --select-bg-color: #151515;
-    --select-outline: #383838;
-    --select-font-color: #fff;
-
-    --focus-outline: 2px solid #3f3f3f;
-
-    --word-trigger-focus-outline: 2px solid #0ea5e9;
-    --fetch-execute-counter-font-color: #fff;
-
-    --fetch-execute-circle-border: 1px solid #969594ff;
-  }
-
   button {
     color: var(--button-font-color);
   }
@@ -71,16 +9,17 @@
     color: var(--input-font-color);
   }
 
-  select {
-    color: var(--select-font-color);
-    background-color: var(--select-bg-color);
-    border: 1px solid var(--select-outline);
-  }
-
   *:focus-visible {
     outline: var(--focus-outline);
   }
 }
+
+/* 
+  Components
+
+  These are buttons; interactive elements or smaller bundled elements for UI
+
+*/
 
 /* ======================== */
 /*  Buttons                 */
@@ -88,12 +27,14 @@
 
 /* TODO: hover styles (variables)  */
 
-#app-controls button,
-#memory-controls button,
-#cpu-controls button {
+button {
   padding: var(--button-padding);
   border-radius: var(--button-border-radius);
   cursor: pointer;
+}
+
+.compact-button {
+  padding: 0.5rem 0.75rem;
 }
 
 .nav-view-button {
@@ -113,7 +54,6 @@
 }
 
 .secondary-button {
-  font-weight: 500;
   background-color: var(--secondary-button-bg-color);
   border: 1px solid var(--secondary-button-outline);
 }
@@ -142,6 +82,11 @@ button {
 }
 
 select {
+  color: var(--select-font-color);
+  background-color: var(--select-bg-color);
+  border: 1px solid var(--select-outline);
+  /* gutter for dark mode */
+  margin: var(--input-outline-gutter);
   background: none;
   /* border: 2px solid var(--tertiary-button-outline); */
   padding: var(--select-button-padding);
@@ -149,11 +94,16 @@ select {
   border-radius: var(--select-button-border-radius);
 }
 
-#cta-button {
+textarea {
+  margin: var(--input-outline-gutter);
+}
+
+.cta-button {
+  color: var(--cta-button-font-color);
   background-color: var(--cta-button-bg-color);
 }
 
-#cta-button:hover {
+.cta-button:hover {
   background-color: var(--cta-button-hover-bg-color);
 }
 
@@ -167,7 +117,9 @@ select {
 }
 
 #memory-view input,
-#cpu input {
+#cpu input,
+#input input,
+#output input {
   padding: var(--table-input-padding);
 }
 
@@ -179,16 +131,95 @@ input[readonly] {
   border: var(--word-trigger-focus-outline);
 }
 
+.setting-row-item:has(.switch) {
+  cursor: pointer;
+}
+
+/* non-selectable text. */
+.setting-row .setting-title {
+  user-select: none;
+}
+
+/* Switch toggle */
+/* reference: https://www.w3schools.com/howto/howto_css_switch.asp */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: var(--switch-width);
+  height: var(--switch-height);
+}
+
+/* hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* OFF switch */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: var(--switch-off-bg-color);
+  transition: 0.4s;
+}
+
+/* OFF toggle handle */
+.slider:before {
+  content: "";
+  position: absolute;
+
+  height: var(--handle-size);
+  width: var(--handle-size);
+
+  /* small offset for the handle */
+  left: 3px;
+
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--switch-off-handle-color);
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+/* ON toggle handle */
+.switch input:checked + .slider {
+  background-color: var(--switch-on-bg-color);
+}
+
+/* ON switch  */
+.switch input:checked + .slider:before {
+  transform: translateY(-50%) translateX(calc(var(--switch-height)));
+  background-color: var(--switch-on-handle-color);
+}
+
+.slider.round {
+  border-radius: 1000px;
+}
+
+/* to-do: move some of this to layout, base */
 /* ======================== */
 /*  Status                  */
 /* ======================== */
 
 #app-status-container {
   display: flex;
-  flex-flow: row-wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2em;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--app-status-container-column-gutter);
+  gap: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--app-status-border-color);
+  border-radius: var(--app-status-container-border-radius);
+  background-color: var(--app-bg-color);
+}
+
+/* only add spacing when the instruction shows up */
+#app-status-container:has(#current-instruction:empty) {
+  gap: 0;
 }
 
 #app-status {
@@ -196,6 +227,34 @@ input[readonly] {
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: flex-start;
+  gap: var(--app-status-gutter);
+}
+
+/* #app-status-bus {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-end; */
+  /* Allows the ascii diagram to shrink at smaller viewports.
+  clamp down on font size!
+
+  https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/clamp
+  */
+  /* font-size: clamp(0.6rem, 1.2vw, 1rem);
+  white-space: nowrap;
+} */
+
+#app-status-bus {
+  margin: 1rem 0;
+}
+
+#node-1-container,
+#node-2-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #app-fetch-execute {
@@ -206,21 +265,87 @@ input[readonly] {
   gap: 1em;
 }
 
-#fetch-execute-counter-circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: oklch(66.6% 0.179 58.318); */
-  border: var(--fetch-execute-circle-border);
-  width: 30px;
-  height: 30px;
-  border-radius: 99px;
+
+/* 
+  Tooltips
+*/
+
+.tooltip {
+  position: relative;
+  /* Manually adjust tooltip position depending on where it is! */
 }
 
-#fetch-execute-subtitle {
-  font-weight: 500;
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+
+  background-color: var(--tooltip-bg-color);
+  color: var(--tooltip-font-color);
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  font-size: var(--small-font-size);
+
+  white-space: nowrap;
+  pointer-events: none;
+
+  opacity: 0;
+  visibility: hidden;
+  font-size: 0.85em;
+  /* Some 'magic' numbers to sort of 'pop in' */
+  /*
+
+  Pop-in:
+  translateY, scale → start from bottom and go up. Classic design pattern
+
+  Then make the tooltip visible.
+
+  visibility: hidden → visible
+  opacity: 0 → 1
+  */
+  transform: translateY(-4px) scale(0.96);
+  transition: opacity 0.16s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.16s cubic-bezier(0.2, 0, 0, 1), visibility 0s linear 0.16s;
 }
-#fetch-execute-counter {
-  font-size: var(--fetch-execute-counter-font-size);
-  color: vaar(--fetch-execute-counter-font-color);
+
+.tooltip:hover::after {
+  /* finish the transition */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* tooltip wrapper for input */
+#io-input-wrapper {
+  position: relative;
+  display: inline-block; 
+}
+
+/* override styles for tooltip; should always be visible */
+#io-input-wrapper.tooltip::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    top: 125%;
+    right: 0;
+}
+
+/* Manually adjust tooltip position depending on where it is! */
+#toggle-nav-view::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 1rem;
+}
+
+#app-controls .tooltip::after {
+  bottom: -2.5em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 800px) {
+  /* Make our ASCII diagram a biiit bigger on mobile devices */
+  #app-status-bus {
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+  }
 }
