@@ -5,7 +5,6 @@
 @import "_control-panel.css";
 @import "_onboarding.css";
 @import "_layout.css";
-@import "_theme.css";
 
 * {
   box-sizing: border-box;
