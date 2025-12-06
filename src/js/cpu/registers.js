@@ -18,13 +18,10 @@ import { animateValChange } from "../ui/animate.js";
 import { MEMORY_SIZE } from "../utils/constants.js";
 
 import {
+  decodeAssembly,
   decodeInstruction,
   decodeOperand,
-  decodeAssembly,
 } from "../utils/decode.js";
-
-// TO-DO, probably refactor this...
-import { displayASMValue } from "../ui/inputDisplay.js";
 
 import { formatBinaryWithPadding } from "../ui/inputDisplay.js";
 
@@ -323,8 +320,6 @@ class RegisterController {
     //then flash input
     await this.#view.setIRValue(bin);
   }
-
-  decode;
 }
 
 export { RegisterController };
