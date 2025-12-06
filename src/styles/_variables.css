@@ -1,0 +1,403 @@
+/*
+  Variables
+
+  (Almost) all the variables referenced in other stylesheets
+
+*/
+
+:root {
+  /* 
+    Global App Appearance
+  */
+
+  --app-border-color: #e5e5e5;
+  --app-border-radius: 6px;
+  --global-font-size-default: 100%;
+
+  --logo-color: #1063fe;
+
+  /* 
+    Layout
+  */
+
+  /* Max-width for the bus diagram 
+  The height is auto; the aspect ratio is important to have fixed.
+  */
+  --bus-diagram-size: 350px;
+
+  /* CPU table */
+  --cpu-table-horizontal-cell-gap: 1em;
+  --cpu-table-vertical-cell-gap: 0.75em;
+  --cpu-table-large-vertical-cell-gap: 1.5em;
+  --cpu-caption-gap: 0.75em;
+  /* might be orange/green for the CPU -- user submitted feedback for green */
+  --register-active-outline: 1px solid var(--colorblind-green);
+
+  /* Memory Table */
+  --memory-table-max-width: 34em;
+  --mem-table-horizontal-cell-gap: 1em;
+  --mem-table-vertical-cell-gap: 0.75em;
+  --mem-table-large-vertical-cell-gap: 1.5em;
+  --mem-caption-gap: 0.75em;
+
+  /* Opcode Tables ; deprecated - use <dl>, <dd> instead */
+  --instruction-set-table-horizontal-cell-gap: 2.125em;
+  --instruction-set-table-vertical-cell-gap: 1em;
+  --opcode-caption-gap: 0.75em;
+
+  /* I/O table spacing */
+  /* --io-table-horizontal-cell-gap: 0.6em;
+  --io-table-vertical-cell-gap: 0.9em;
+  --io-table-large-vertical-cell-gap: 1.2em; */
+
+  --io-table-horizontal-cell-gap: 0.6em;
+  --io-table-vertical-cell-gap: 0.75em;
+
+  /*
+    Typography
+  */
+
+  --primary-font: "Geist Sans", "IBM Plex Sans",  -apple-system,
+    BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue,
+    Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  --monospace-font: "JetBrains Mono", "IBM Plex Mono", "Geist Mono", monospace;
+
+  --app-title-font-size: 1.15rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1.05rem;
+  --h4-font-size: 0.9rem;
+  --button-font-size: 1rem;
+  --table-header-font-size: 0.85rem;
+  --io-label-font-size: 1.25rem;
+  --nav-element-font-size: 0.95rem;
+  --cpu-label-font-size: 0.95rem;
+  --monospace-font-size: 0.75rem;
+  --secondary-text-font-color: #737373;
+  --subtitle-font-color: #737373;
+  --small-font-size: 0.875rem;
+  --relaxed-line-height: 1.625;
+  --dd-font-size: 0.85rem;
+
+  --link-hover-color: black;
+
+  /* Tables */
+  --table-outline-color: var(--gray-90);
+  --table-border-radius: 6px;
+  --table-input-padding: 0.35em 0.35em;
+
+  /* Inputs */
+  --input-placeholder-font-color: var(--colorblind-black);
+  --input-placeholder-font-color-disabled: #737373;
+  /* Setting border from 1px → 2px creates collisions, so let's add a safe gap */
+  --input-outline-gutter: 2px;
+
+  /* Inline code */
+  --inline-code-bg-color: #f9f9f9;
+  --inline-code-border-color: #d1d1d1;
+  --inline-code-border-radius: 0.25em;
+  --inline-code-padding-block: 0.2em;
+  --inline-code-padding-inline: 0.3rem;
+
+  --instruction-syntax-highlight-color: var(--huetone-green-80);
+
+  /* Line characters limits */
+  --character-limit: 65ch;
+
+  /* Footer */
+  --footer-font-size: 0.75rem;
+  --footer-font-color: #737373;
+
+  /* 
+    Colors
+  */
+
+  /* Base colors based off IBM Carbon design system */
+  /* Colors are verified via APCA, or new WCAG 3.0 (preliminary) accessibility contrast checker */
+
+  --gray-90: #e5e5e5;
+
+  /* colors based off Stripe Dashboard */
+  --stripe-yellow-200: #e7c07b;
+  --stripe-green-300: #48c404;
+  --stripe-green-500: #228403;
+  --stripe-red-500: #df1b41;
+
+  /* colors based off IBM Carbon */
+  --ibm-red-40: #ff8389;
+  --ibm-red-70: #a2191f;
+  --ibm-green-60: #24a148;
+  --ibm-green-70: #198038;
+  --ibm-blue-30: #a6c8ff;
+  --ibm-blue-60: #0f62fe;
+  --ibm-blue-70: #0043ce;
+  --ibm-gray-90: #262626;
+
+  --shiki-green-30: #59873a;
+  --shiki-green-50: #80a665;
+
+  /* Radix UI light theme */
+  --radix-light-indigo-33: #aec0f5;
+  --radix-light-indigo-75: #3e63dd;
+  --radix-light-orange-44: #fa934e;
+  --radix-light-orange-56: #f76808;
+
+  --radix-light-amber-33: #ffb224;
+  --radix-light-amber-39: #ffa01c;
+
+  --radix-light-lime-32: #99d52a;
+  --radix-light-lime-38: #93c926;
+
+  --radix-light-yellow-20: #f5d90a;
+  --radix-light-yellow-24: #f7ce00;
+
+  --radix-light-purple-28: #d3b4ed;
+  --radix-light-purple-49: #be93e4;
+
+  --radix-dark-plum-96: #542658;
+
+  /* Misc colors */
+
+  --huetone-green-35: #9acb78;
+  --huetone-green-80: #2f7007;
+
+  /* Colorblind Colors */
+
+  /* colorblind colors are based from Okabe and Ito https://jfly.uni-koeln.de/color/  */
+  --colorblind-black: #000000;
+  --colorblind-gold: #e69f00;
+  --colorblind-sky: #56b4e9;
+  --colorblind-green: #009e73;
+  --colorblind-yellow: #f0e442;
+  --colorblind-blue: #0072b2;
+  --colorblind-orange: #d55e00;
+  --colorblind-purple: #cc79a7;
+
+  /* extra colorblind colors based off IBM Design Library */
+  --ibm-colorblind-blue: #5c8efe;
+  --ibm-colorblind-purple: #725def;
+  --ibm-colorblind-magenta: #dd227d;
+  --ibm-colorblind-orange: #ff5f00;
+  --ibm-colorblind-yellow: #ffb10e;
+
+  /* Page Appearance */
+  --page-bg-color: white;
+  --default-font-color: var(--colorblind-black);
+  --app-outline-color: var(--gray-90);
+  --textarea-border: 1px solid var(--gray-90);
+
+  /* Symbols */
+  --active-dot-color: orange;
+  --active-arrow-color: #06b6d4;
+
+  /* Navigation Tab */
+  --active-nav-tab-font-color: black;
+  --inactive-nav-tab-font-color: #737373;
+
+  /*
+    ANIMATION SPEEDS
+  */
+
+  /* test normal with 0.8 <-> 1s 
+  to pair with .register-active row outline
+  */
+  --normal-animation-speed: 1s;
+  --fast-animation-speed: 0.4s;
+  --instant-animation-speed: 0;
+
+  /* 
+    Components
+  */
+
+  /* Buttons */
+
+  --button-padding: 0.5em 1.5em;
+  --button-border-radius: 6px;
+
+  --primary-button-bg-color: black;
+  --primary-button-font-color: white;
+  --primary-button-bg-hover-color: #2e2e2e;
+  --primary-button-outline: none;
+
+  --secondary-button-bg-color: #f5f5f5;
+  --secondary-button-outline: var(--gray-90);
+  --secondary-button-bg-hover-color: #f7f7f7;
+  --tertiary-button-outline: var(--gray-90);
+  --tertiary-button-bg-hover: #f5f5f5;
+  --destructive-button-bg-color: #e7030b;
+
+  --cta-button-font-color: white;
+  --cta-button-bg-color: var(--ibm-blue-60);
+  --cta-button-hover-bg-color: var(--ibm-blue-70);
+
+  --switch-height: 20px;
+  --switch-width: calc(var(--switch-height) * 2);
+  --handle-size: calc(var(--switch-height) - 4px);
+
+  --switch-on-handle-color: #fff;
+  --switch-off-handle-color: #fff;
+  --switch-off-bg-color: #e5e5e5;
+  --switch-on-bg-color: #171717;
+
+  /* App Status */
+  --app-status-container-border-radius: 6px;
+  --app-status-border-color: var(--gray-90);
+
+  /* Intentionally black on white page background for contrast and focus */
+  --app-bg-color: black;
+  --app-font-color: white;
+
+  --app-status-gutter: 0.75em;
+  --app-status-container-column-gutter: 0.75em;
+
+  --fetch-execute-counter-font-size: 0.95rem;
+  --fetch-execute-counter-font-color: white;
+  --fetch-execute-circle-border: 1px solid white;
+
+  /* Input Selection */
+  --select-bg-color: transparent;
+  --select-outline: var(--gray-90);
+  --select-button-padding: 0.5em 2em 0.5em 0.5em;
+  --select-button-border-radius: 6px;
+
+  /* Active Memory */
+  --active-memory-arrow-color: var(--ibm-blue-60);
+
+  /* Tooltips */
+  --tooltip-bg-color: #0a0a0a;
+  --tooltip-font-color: #fff;
+
+  /* onboarding */
+  --modal-overlay-color: rgba(255, 255, 255, 0.85);
+  --modal-bg-color: #ffffff;
+  --onboarding-footer-border-color: #f3f4f6;
+
+  --step-icon-color: #000;
+  --step-icon-text-color: #fff;
+  --step-image-bg-color: #f3f4f6; 
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 
+        Page Appearance
+    */
+    /* --page-bg-color: #0a0a0a; */
+    /* --page-bg-color: #0d0d0e; */
+    --page-bg-color: #161616;
+    --default-font-color: #d4d4d4;
+    --app-outline-color: #0a0a0a;
+
+    --textarea-bg-color: #151515;
+    --textarea-border: 1px solid #383838;
+
+    /* #232323 */
+    --app-border-color: var(--ibm-gray-90);
+
+    /* Symbols */
+    --active-dot-color: #f97316;
+
+    /* Tables */
+    /* --table-outline-color: #0a0a0a; */
+    --table-outline-color: #383838;
+
+    /* 
+        Typography
+    */
+
+    --secondary-text-font-color: #cacaca;
+    --subtitle-font-color: #fff;
+
+    --link-hover-color: white;
+
+    /* Inline code */
+    --inline-code-bg-color: transparent;
+    --inline-code-border-color: #3c4145;
+    --inline-code-font-color: #a1a1a1;
+
+    --active-nav-tab-font-color: #fff;
+    --inactive-nav-tab-font-color: #989898;
+
+    --input-placeholder-font-color: #a1a1a1;
+    --input-placeholder-font-color-disabled: #5b5b5b;
+
+    --disabled-input-font-color: #595959;
+
+    --instruction-syntax-highlight-color: var(--huetone-green-35);
+
+    /*
+        Components
+    */
+
+    /* Buttons */
+    --button-font-color: #fafafa;
+    --primary-button-bg-color: #151515;
+    --primary-button-font-color: #d4d4d4;
+    --primary-button-bg-hover-color: #1c1c1c;
+    --primary-button-outline: #3e3e3e;
+
+    --secondary-button-bg-color: #262626;
+    --secondary-button-outline: transparent;
+    --secondary-button-bg-hover-color: #212121;
+
+    --tertiary-button-bg-color: #1c1c1c;
+    --tertiary-button-outline: #3e3e3e;
+    --tertiary-button-bg-hover: #1c1c1c;
+
+    --destructive-button-bg-color: #9e4042;
+    /* --cta-button-bg-color: oklch(66.6% 0.179 58.318); */
+    --cta-button-bg-color: var(--ibm-blue-60);
+    --cta-button-hover-bg-color: var(--ibm-blue-70);
+    /* --cta-button-hover-bg-color: oklch(0.55 0.17 38); */
+
+    --switch-on-handle-color: #171717;
+    --switch-off-handle-color: #fafafa;
+    --switch-off-bg-color: #272727;
+    --switch-on-bg-color: #e5e5e5;
+
+    /* Inputs  */
+    --input-bg-color: #151515;
+    --input-outline: #383838;
+    --input-font-color: #fff;
+
+    --select-bg-color: #151515;
+    --select-outline: #383838;
+    --select-font-color: #fff;
+    --focus-outline: 2px solid #3f3f3f;
+    --word-trigger-focus-outline: 2px solid #0ea5e9;
+
+    /*
+        App Status
+    */
+
+    --app-status-border-color: var(--ibm-gray-90);
+    --app-bg-color: black;
+
+    --fetch-execute-counter-font-color: #fff;
+    --fetch-execute-circle-border: 1px solid white;
+
+    --ready-status-color-monochrome: white;
+
+    /* Tooltips */
+    --tooltip-bg-color: #fafafa;
+    --tooltip-font-color: black;
+
+    /* onboarding */
+    --modal-overlay-color: rgba(0, 0, 0, 0.75);
+    --modal-bg-color: #1c1c1c;
+    --modal-border-color: #333; /* or app-border-color */
+     --onboarding-footer-border-color: var(--app-border-color);
+
+    --step-icon-color: #fff;
+    --step-icon-text-color: #000;
+
+    --step-image-bg-color: #000000;
+  }
+}
+
+/*
+Color accessible preferences.
+*/
+
+@media (prefers-contrast: more) {
+  /* TO-DO */
+}
