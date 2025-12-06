@@ -31,7 +31,7 @@
   --input-color: #ffa500;
 
   /* Sizes for parts that need to be seen */
-  --data-dot-radius: 5;
+  --data-dot-radius: 5px;
   --data-binary-font-size: 0.45rem;
   --register-label-font-size: 0.45rem;
 
@@ -155,6 +155,8 @@
   opacity: 0; */
   pointer-events: none;
   r: var(--data-dot-radius) !important;
+    text-anchor: middle;
+  dominant-baseline: middle;
 }
 
 #data-binary {
