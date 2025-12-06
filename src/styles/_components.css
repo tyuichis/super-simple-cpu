@@ -348,4 +348,9 @@ input[readonly] {
   #app-status-bus {
     font-size: clamp(1rem, 2.5vw, 1.6rem);
   }
+
+  /* hide tooltips on mobile view */
+  .tooltip:hover::after {
+    display: none;
+  }
 }
