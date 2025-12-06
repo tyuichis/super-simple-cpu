@@ -12,9 +12,12 @@ function displayTabView(targetButtonElement) {
 
   // format the targetViewName
   // "Log Window" → log-window
-  const targetViewName = targetButtonElement.textContent.trim().replaceAll(" ", "-").toLowerCase();
+  const targetViewName = targetButtonElement.textContent
+    .trim()
+    .replaceAll(" ", "-")
+    .toLowerCase();
 
-    console.log(targetViewName);
+  // console.log(targetViewName);
 
   // toggle and set correct class.
   if (currentViewName !== targetViewName) {
