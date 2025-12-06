@@ -1,71 +1,6 @@
-:root {
-  --page-bg-color: white;
-  --default-font-color: black;
-  --input-placeholder-font-color: black;
-
-  --primary-font: "Geist Sans", "Inter", -apple-system, BlinkMacSystemFont,
-    avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell,
-    Ubuntu, roboto, noto, helvetica, arial, sans-serif;
-  --monospace-font: "Geist Mono", "JetBrains Mono", monospace;
-  /* 20px target / 16px root = 1.25em */
-  --app-title-font-size: 1.15rem;
-  --h2-font-size: 1.25rem;
-  --button-font-size: 1rem;
-  --table-header-font-size: 0.85rem;
-  --io-label-font-size: 1.25rem;
-  --nav-element-font-size: 0.95rem;
-  --cpu-label-font-size: 0.95rem;
-  /* 12px target /16px root = 0.75em */
-  --monospace-font-size: 0.75rem;
-  --app-outline-color: #e5e5e5;
-  --table-outline-color: #e5e5e5;
-  --table-border-radius: 6px;
-  --table-input-padding: 0.35em 0.35em;
-  --secondary-text-font-color: #737373;
-  --subtitle-font-color: #737373;
-
-  --relaxed-line-height: 1.625;
-  --inline-code-bg-color: #f9f9f9;
-  --inline-code-border-color: #d1d1d1;
-
-  --inline-code-border-radius: 0.25em;
-  --inline-code-padding-block: 0.2em;
-  --inline-code-padding-inline: 0.3rem;
-
-  --dd-font-size: 0.85rem;
-
-  --small-font-size: 0.875rem;
-
-  --active-nav-tab-font-color: black;
-  --inactive-nav-tab-font-color: #737373;
-
-  --input-placeholder-font-color-disabled: #737373;
-}
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --page-bg-color: #0a0a0a;
-    --default-font-color: #d4d4d4;
-    --app-outline-color: #0a0a0a;
-    --table-outline-color: #0a0a0a;
-    --secondary-text-font-color: #cacaca;
-    --subtitle-font-color: #fff;
-    --table-outline-color: #383838;
-    /* --inline-code-bg-color: #262626; */
-    --inline-code-bg-color: transparent;
-    --inline-code-border-color: #3c4145;
-    --inline-code-font-color: #a1a1a1;
-
-    --active-nav-tab-font-color: #fff;
-    --inactive-nav-tab-font-color: #989898;
-
-    --input-placeholder-font-color: #A1A1A1;
-    --input-placeholder-font-color-disabled: #5B5B5B;
-
-    --disabled-input-font-color: #595959;
-  }
-
-  #opcode-view table {
+  #instruction-set-tab table {
     border: 1px solid var(--table-outline-color);
     border-radius: var(--table-border-radius);
   }
@@ -79,10 +14,24 @@
 /*  Appearance              */
 /* ======================== */
 
+#logo {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.75em;
+}
+
+/* #logo svg path {
+  fill: var(--stripe-green-500);
+} */
+
 body {
   margin: 12px 0;
   background-color: var(--page-bg-color);
   color: var(--default-font-color);
+}
+
+#memory-controls {
+  background-color: var(--page-bg-color);
 }
 
 #app-wrapper {
@@ -90,14 +39,18 @@ body {
 }
 
 #app-title {
-  margin: 0;
-  font-size: var(--app-title-font-size);
+    margin: 0;
+    font-size: var(--app-title-font-size);
+    text-transform: lowercase;
+    font-weight: 500;
 }
 
 /* Tables and Inputs */
 #memory-view table,
 #cpu table,
-input {
+input,
+#input table,
+#output table {
   border: 1px solid var(--table-outline-color);
   border-radius: var(--table-border-radius);
 }
@@ -105,11 +58,17 @@ input {
 /* empty memory cells should be a bit dimmer. */
 #memory-view input:empty::placeholder,
 input[readonly]::placeholder,
-input [disabled]::placeholder {
-    color: var(--input-placeholder-font-color-disabled);
+input [disabled]::placeholder,
+#input input:empty::placeholder {
+  color: var(--input-placeholder-font-color-disabled);
 }
 
-/* #opcode-view {
+/* Outline the current address row  */
+#memory-view table tbody tr:has([id^="mem-active-"]:not(:empty)) {
+  outline: 1px solid var(--ibm-blue-60);
+}
+
+/* #instruction-set-tab {
     border-left: 1px solid var(--app-outline-color);
 } */
 
@@ -118,23 +77,47 @@ section#memory-view thead th:first-child {
   padding-left: 0;
 }
 
-#status-message:before {
-  content: "●";
-  padding-right: 0.35em;
-}
-
-.current-address::before {
+/* .current-address::before {
   content: "●";
   padding-right: 0.5em;
   color: orange;
   font-size: 0.85em;
   animation: 1.75s ease-in 1s infinite reverse both slow-dot-pulse;
-}
+} */
 
 #log-window-tab textarea::placeholder {
   font-family: var(--primary-font);
 }
 
+textarea {
+  color: inherit;
+  border: var(--textarea-border);
+  padding: 0.85rem;
+  border-radius: 6px;
+  background-color: var(--textarea-bg-color);
+}
+
+#log-window-tab textarea,
+#assembly-window-tab textarea,
+#assembly-window-tab textarea::placeholder {
+  font-family: var(--monospace-font);
+}
+
+/* preserve linebreaks for javascript... */
+textarea#assembly-window {
+    white-space: pre-wrap;
+}
+
+
+/* Prefer square outlines to focus - helps differentiate between non-focused buttons (as buttons are round.) */
+button:focus-visible {
+  border-radius: 0;
+}
+
+/* Focus more on the non-empty cells */
+input:placeholder-shown {
+  opacity: 0.3;
+}
 
 /* ======================== */
 /*  Typography              */
@@ -142,20 +125,87 @@ section#memory-view thead th:first-child {
 
 /* Global */
 
-html {
-  font-size: 16px;
-}
-
 body {
   font-family: var(--primary-font);
+}
+
+button {
+  font-family: var(--primary-font);
+}
+
+
+h2 {
+  font-size: var(--h2-font-size);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  font-weight: 500;
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  /* reset margins */
+  margin: 0;
+}
+
+footer {
+  font-size: var(--footer-font-size);
+  color: var(--footer-font-color);
+  font-family: var(--monospace-font);
+  text-align: baseline;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1.25px;
+  text-underline-offset: 4px;
+}
+
+.link-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  vertical-align: middle;
+  padding-left: 0.25rem;
+}
+
+footer p {
+  display: inline-flex;
+  align-items: center;
+}
+
+dd {
+  /* Limit definition descriptions to a readable limit. */
+  max-width: var(--character-limit);
+  line-height: var(--relaxed-line-height);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Navigation */
 
 .nav-view-button {
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--nav-element-font-size);
   color: var(--inactive-nav-tab-font-color);
+  text-align: left;
 }
 
 /* Keep track of our current nav view */
@@ -164,7 +214,8 @@ body {
 .on-main #view-main-button,
 .on-log-window #view-log-window-button,
 .on-assembly-window #view-assembly-window-button,
-.on-example-list #view-example-list-button {
+.on-instruction-set #view-instruction-set-button,
+.on-settings #view-settings-button {
   color: var(--active-nav-tab-font-color);
   text-decoration: underline;
   text-decoration-thickness: 1.75px;
@@ -185,12 +236,22 @@ code {
   font-optical-sizing: auto;
 }
 
+/* hide empty code cells. */
+code:empty {
+  display: none;
+}
+
 input {
   font-family: var(--monospace-font);
 }
 
 input::placeholder {
-    color: var(--input-placeholder-font-color);
+  color: var(--input-placeholder-font-color);
+}
+
+#memory-view input,
+#cpu input {
+  font-weight: 300;
 }
 
 /* Buttons */
@@ -208,18 +269,46 @@ button {
 }
 
 /* Labels */
-.base-10-label {
-  font-size: 0.75em;
-  font-weight: 500;
-  color: var(--subtitle-font-color);
-  margin-bottom: 0.25em;
-}
 
-.mem-val-container .instruction-label {
+.instruction-label {
   font-family: var(--monospace-font);
   font-size: var(--monospace-font-size);
   color: var(--secondary-text-font-color);
   margin-bottom: 0.25em;
+  white-space: nowrap;
+}
+
+.instruction {
+  color: var(--instruction-syntax-highlight-color);
+}
+
+[id^="mem-addr-"] label {
+  font-family: var(--monospace-font);
+  font-size: var(--monospace-font-size);
+  color: var(--secondary-text-font-color);
+}
+
+/* [id^="mem-active-"] {
+  color: var(--active-dot-color);
+  font-size: 0.85em;
+  animation: 1.85s ease-in 1s infinite reverse both slow-dot-pulse;
+} */
+
+[id^="mem-active-"] {
+  color: var(--active-memory-arrow-color);
+  font-size: 1.5em;
+  font-weight: 700;
+  vertical-align: baseline;
+}
+
+[id^="mem-active-"].inactive {
+  color: var(--inactive-dot-color);
+  animation: none;
+}
+
+/* Extra gutter */
+details[open] summary {
+  margin-bottom: 0.85rem;
 }
 
 /* Tables */
@@ -254,6 +343,22 @@ th {
   font-size: var(--cpu-label-font-size);
 }
 
+.register-active {
+  outline: var(--register-active-outline);
+}
+
+/* Add an arrow right before the Register name */
+.register-active [id^="reg-label-"] label::before {
+  content: "→ ";
+  color: var(--colorblind-green);
+}
+
+/* starts with, ends with */
+/* make sure the labels are always aligned with the input (typogreaphy baseline refers to the bottom of the letters) */
+[id^="reg-val-"][id$="-asm"] {
+  vertical-align: baseline;
+}
+
 /* Memory Table */
 #memory-table-header-address {
   text-align: center;
@@ -263,33 +368,55 @@ th {
   text-align: left;
 }
 
-/* Opcode View */
+/* Center text */
+[id^="mem-addr-"] label {
+  display: flex;
+  justify-content: center;
+}
 
-#opcode-table-header-binary,
-tbody tr td:nth-child(1) {
+[id^="mem-val-"][id$="-asm"],
+[id^="mem-addr-"] {
+  vertical-align: baseline;
+}
+
+/* mem-val-${i}-asm */
+[id^="mem-val-"][id$="-asm"] {
   text-align: center;
 }
 
-#opcode-table-header-instruction,
-tbody tr td:nth-child(2) {
-  text-align: center;
+[id^="mem-val-"] input {
+  font-size: 0.85em;
 }
 
-#opcode-table-header-explanation,
-tbody tr td:nth-child(3) {
+/* I/O Tables */
+
+#input th,
+#output th {
   text-align: left;
 }
 
-#opcode-view td {
+#input td,
+#output td {
+  text-align: baseline;
+}
+
+/* Opcode View */
+
+#instruction-set-tab td {
   font-size: var(--monospace-font-size);
 }
 
-#opcode-view td:nth-child(3) {
+#instruction-set-tab td:nth-child(3) {
   color: var(--secondary-text-font-color);
 }
 
-#opcode-list dd {
+#instruction-set-tab dd {
   font-size: var(--dd-font-size);
+}
+
+.opcode-instruction,
+[id$='-instruction'] {
+  color: var(--instruction-syntax-highlight-color);
 }
 
 /* Memory Data Format Table */
@@ -311,22 +438,16 @@ tbody tr td:nth-child(3) {
   font-size: var(--dd-font-size);
 }
 
-/* App Status */
-
-#current-instruction {
-  font-family: var(--monospace-font);
-  font-size: var(--monospace-font-size);
-}
-
 /* Interactive Text */
 
-.focus-trigger {
+/* Disable for now, due to new navigation tab layout. */
+/* .focus-trigger {
   font-weight: 700;
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: #e5e5e5;
   text-decoration-offset: 2px;
-}
+} */
 
 /* ======================== */
 /*  Animations              */
@@ -349,17 +470,34 @@ tbody tr td:nth-child(3) {
 .pulse-blue {
   animation: pulse-blue 0.65s ease-out;
 }
+/* default */
+
+.register-update {
+  animation: pulse-blue var(--normal-animation-speed) ease-out;
+}
+
+.speed-normal .register-update {
+  animation-duration: var(--normal-animation-speed);
+}
+
+.speed-fast .register-update {
+  animation-duration: var(--fast-animation-speed);
+}
+
+.speed-instant .register-update {
+  animation-duration: var(--instant-animation-speed);
+}
 
 @keyframes slow-dot-pulse {
   0% {
-    opacity: 40%;
-  }
-
-  50% {
     opacity: 100%;
   }
 
+  50% {
+    opacity: 50%;
+  }
+
   100% {
-    opacity: 40%;
+    opacity: 100%;
   }
 }
