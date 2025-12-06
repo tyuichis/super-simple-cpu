@@ -21,7 +21,18 @@
 
 // Blank memory cells, "", are treated as 0000 0000 0000 0000
 
+import { MEMORY_SIZE } from "./constants.js";
+
 // TO-DO, store examples as separate JSON files
+
+// Example 0 - null; blank state
+
+const EXAMPLE_0 = [
+  {
+    "mem-label": "",
+    "mem-val": "0000000000000000",
+  },
+];
 
 // Example 1 - Sequence
 const EXAMPLE_1 = [
@@ -245,6 +256,7 @@ const EXAMPLE_6 = [
 ];
 
 const EXAMPLE_LIST = [
+  EXAMPLE_0,
   EXAMPLE_1,
   EXAMPLE_2,
   EXAMPLE_3,
@@ -252,5 +264,15 @@ const EXAMPLE_LIST = [
   EXAMPLE_5,
   EXAMPLE_6,
 ];
+
+EXAMPLE_LIST.forEach((example) => {
+  example.forEach((cell) => {
+    // Only pad out the cells containing a value;
+    // other cells that are blank stay blank.
+    if (cell["mem-val"]) {
+      cell["mem-val"] = cell["mem-val"].padEnd(MEMORY_SIZE, "0");
+    }
+  });
+});
 
 export { EXAMPLE_LIST };
