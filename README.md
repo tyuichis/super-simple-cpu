@@ -1,3 +1,5 @@
+![app_preview](./public/hero.webp)
+
 # Super Simple CPU
 
 > A visual CPU simulator designed to visualise the Von Neumann architecture.
