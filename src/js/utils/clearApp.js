@@ -12,22 +12,34 @@ function clearIO() {
 
 function clearMemory() {
   for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
-    const memAddrLabel = document.getElementById(`mem-addr-label-${i}`);
+    const memAddrLabel = document.querySelector(`#mem-addr-label-${i} label`);
     const memAddr = document.getElementById(`mem-addr-${i}`);
     const memVal = document.getElementById(`mem-val-${i}`);
-    const memValInstruction = document.getElementById(`mem-val-${i}-asm`);
+    const memInstruction = document.getElementById(`mem-val-${i}-instruction`);
 
-    memAddrLabel.value = "";
+    const memOperand = document.getElementById(`mem-val-${i}-operand`);
+
+    memAddrLabel.textContent = "";
     memAddr.value = "";
     memVal.value = "";
-    memValInstruction.textContent = "";
+    memInstruction.textContent = "";
+    memOperand.textContent = "";
   }
 }
 
 function clearCPURegisters() {
   document.querySelectorAll("#cpu input").forEach((input) => {
-    input.value = "";
+    if (input.id === "reg-val-pc") {
+      input.value = "0";
+    } else {
+      input.value = "";
+    }
   });
+
+  // clear assembly
+  document.getElementById("reg-val-acc-asm-current").textContent = "0";
+  document.getElementById("reg-val-ir-asm-instruction").textContent = "";
+  document.getElementById("reg-val-ir-asm-current").textContent = "";
 }
 
 function clearApp() {
