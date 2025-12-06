@@ -119,4 +119,12 @@ function decodeOperand(instruction, binary) {
   }
 }
 
-export { decodeInstruction, decodeOperand };
+function decodeAssembly(bin) {
+    const instructionBin = bin.slice(0, 4);
+    const instruction = decodeInstruction(instructionBin);
+    const operandBin = bin.slice(4);
+    const operand = decodeOperand(instruction, operandBin);
+    return [instruction, operand];
+}
+
+export { decodeInstruction, decodeOperand, decodeAssembly };
