@@ -3,8 +3,9 @@ Get all of the values within the memory cells, convert to JSON string
 then save as a JSON file.
 */
 
-import { formatMemoryInput } from "../ui/memoryView.js";
 import { MEMORY_SIZE } from "./constants.js";
+
+import { FileSaver } from "./fileSaver.js";
 
 function getMemoryCells() {
   // mem-addr-label-[i] : String,
@@ -14,7 +15,7 @@ function getMemoryCells() {
   // need to format mem-val-[i] to remove the spaces
 
   const memory = [];
-  for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
+  for (let i = 0; i < MEMORY_SIZE; i++) {
     const memAddrLabel = document.getElementById(`mem-addr-label-${i}`);
     const memAddr = document.getElementById(`mem-addr-${i}`);
     const memVal = document.getElementById(`mem-val-${i}`);
@@ -31,53 +32,13 @@ function getMemoryCells() {
   return memory;
 }
 
+// To-do, also save registers?
 async function saveMemoryFile() {
   const fileName = `memoryData-${Date.now()}.json`;
 
-  const jsonData = JSON.stringify(getMemoryCells());
+  const data = getMemoryCells();
 
-  if ("showSaveFilePicker" in window) {
-    try {
-      const fileHandler = await window.showSaveFilePicker({
-        suggestedName: fileName,
-        types: [
-          {
-            description: "Memory JSON",
-            accept: { "application/json": [".json"] },
-          },
-        ],
-      });
-
-      const writable = await fileHandler.createWritable();
-      await writable.write(jsonData);
-      await writable.close();
-      return;
-    } catch (error) {
-      // MUST handle abort error, otherwise canceling file save still downloads the file.
-      if (error.name === "AbortError") {
-        return;
-      }
-
-      console.error("Something went wrong saving.");
-    }
-  }
-
-  // fallback since Firefox doesn't support the saveFilePicker
-
-  // blob is the raw binary data
-  const blob = new Blob([jsonData], { type: "application/json" });
-
-  // make a URL for this bloberino
-  const downloadURL = URL.createObjectURL(blob);
-
-  // create an element and immediately click on it to activate the download process.
-  const downloadURLElement = document.createElement("a");
-  downloadURLElement.href = downloadURL;
-  downloadURLElement.download = fileName;
-  downloadURLElement.click();
-
-  // cleanup URL reference
-  URL.revokeObjectURL(downloadURL);
+  await FileSaver.saveJSON(data, fileName);
 }
 
 export { getMemoryCells, saveMemoryFile };
