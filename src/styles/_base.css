@@ -294,11 +294,16 @@ button {
   animation: 1.85s ease-in 1s infinite reverse both slow-dot-pulse;
 } */
 
-[id^="mem-active-"] {
+[id^="mem-active-"],
+#monitor-indicator {
   color: var(--active-memory-arrow-color);
   font-size: 1.5em;
   font-weight: 700;
   vertical-align: baseline;
+}
+
+#monitor-indicator {
+  font-family: var(--primary-font);
 }
 
 [id^="mem-active-"].inactive {

@@ -78,6 +78,22 @@ class ControlUnit {
     // Update active memory indicator
     this.#memory.setActive(this.#currentPC);
 
+    // Execution monitor (mobile only)
+    const executionMonitorAddress = document.getElementById(
+      "monitor-address-value"
+    );
+    executionMonitorAddress.textContent = currentPC;
+
+    const executionMonitorInstruction = document.getElementById(
+      "monitor-assembly-instruction"
+    );
+    const executionMonitorOperand = document.getElementById(
+      "monitor-assembly-operand"
+    );
+
+    executionMonitorInstruction.textContent = "";
+    executionMonitorOperand.textContent = "";
+
     // Read memory contents at PC
     const memoryBinary = this.#memory.read(this.#currentPC);
     this.#memoryVal = memoryBinary;
@@ -97,6 +113,10 @@ class ControlUnit {
     // console.log(`assemblyOperand is: ${assemblyOperand}`);
 
     const label = `${assemblyInstruction} ${assemblyOperand}`;
+
+    // Set the execution monitor's assembly upon successful fetch
+    executionMonitorInstruction.textContent = assemblyInstruction;
+    executionMonitorOperand.textContent = assemblyOperand;
 
     // received instruction is read, cpu ← ram
     await this.#busDiagram.setFlow("flow-ram-cpu", label);

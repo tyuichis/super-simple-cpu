@@ -236,12 +236,12 @@ input[readonly] {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-end; */
-  /* Allows the ascii diagram to shrink at smaller viewports.
+/* Allows the ascii diagram to shrink at smaller viewports.
   clamp down on font size!
 
   https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/clamp
   */
-  /* font-size: clamp(0.6rem, 1.2vw, 1rem);
+/* font-size: clamp(0.6rem, 1.2vw, 1rem);
   white-space: nowrap;
 } */
 
@@ -264,7 +264,6 @@ input[readonly] {
   align-items: center;
   gap: 1em;
 }
-
 
 /* 
   Tooltips
@@ -317,16 +316,16 @@ input[readonly] {
 /* tooltip wrapper for input */
 #io-input-wrapper {
   position: relative;
-  display: inline-block; 
+  display: inline-block;
 }
 
 /* override styles for tooltip; should always be visible */
 #io-input-wrapper.tooltip::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-    top: 125%;
-    right: 0;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  top: 125%;
+  right: 0;
 }
 
 /* Manually adjust tooltip position depending on where it is! */
@@ -343,6 +342,34 @@ input[readonly] {
   transform: translateX(-50%);
 }
 
+/* Execution Monitor (mobile component only) */
+
+#execution-monitor {
+  display: none;
+  width: 100%;
+  flex-flow: row nowrap;
+  gap: 0.75rem;
+  font-family: var(--monospace-font);
+  font-size: var(--monospace-font-size);
+  align-items: anchor-center;
+  background: black;
+  color: white;
+  border-radius: 3px;
+  /* padding: 0.35rem 0.5rem; */
+  padding: 0.5rem
+}
+
+#execution-monitor .instruction {
+  color: var(--huetone-green-35);
+}
+
+#execution-monitor #monitor-indicator {
+  font-weight: 400;
+  color: white;
+}
+
+
+
 @media (max-width: 800px) {
   /* Make our ASCII diagram a biiit bigger on mobile devices */
   #app-status-bus {
@@ -352,5 +379,9 @@ input[readonly] {
   /* hide tooltips on mobile view */
   .tooltip:hover::after {
     display: none;
+  }
+
+  #execution-monitor {
+    display: flex;
   }
 }

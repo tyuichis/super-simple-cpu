@@ -128,6 +128,24 @@
             Next Step
           </button>
         </div>
+        <div id="execution-monitor">
+          <span id="monitor-indicator">→</span>
+          <div class="monitor-segment" id="monitor-address-segment">
+            <span class="monitor-label">ADDR</span>
+            <span id="monitor-address-value">0</span>
+            <span class="monitor-delimiter">:</span>
+          </div>
+
+          <div class="monitor-segment" id="monitor-instruction-segment">
+            <span id="monitor-assembly-instruction" class="instruction"></span>
+            <span id="monitor-assembly-operand"></span>
+          </div>
+
+          <!-- probably not necessary as the monitor is sticky -->
+          <!-- <div class="monitor-segment" id="monitor-binary-segment">
+            <span id="monitor-binary-value">0100 0000 0000 0101</span>
+          </div> -->
+        </div>
       </header>
       <main class="on-main">
         <section id="main-view">
@@ -1639,33 +1657,53 @@
       </footer>
     </div>
 
-      <div id="onboarding-overlay" class="hidden">
+    <div id="onboarding-overlay" class="hidden">
       <div class="onboarding-modal">
         <div class="onboarding-header">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
             <path d="M4 4h16v16H4z" />
             <path d="M9 9h6v6H9z" />
-            <path d="M4 8H1.5M8 4V1.5M16 4V1.5M20 16h2.5M20 8h2.5M8 20v2.5m8-2.5v2.5M4 16H1.5M4 4h16v16H4z" />
+            <path
+              d="M4 8H1.5M8 4V1.5M16 4V1.5M20 16h2.5M20 8h2.5M8 20v2.5m8-2.5v2.5M4 16H1.5M4 4h16v16H4z"
+            />
           </svg>
           <h2>super simple cpu</h2>
         </div>
-        
+
         <div class="onboarding-body">
-          <p>A CPU simulator designed to visualize the <em>Von Neumann</em> architecture.</p>
-          
+          <p>
+            A CPU simulator designed to visualize the
+            <em>Von Neumann</em> architecture.
+          </p>
+
           <div class="onboarding-steps">
             <div class="step" style="--order: 1">
               <div class="step-image-container">
                 <picture>
-                  <source srcset="./public/assets/onboarding-step1-dark.png" media="(prefers-color-scheme: dark)">
+                  <source
+                    srcset="./public/assets/onboarding-step1-dark.png"
+                    media="(prefers-color-scheme: dark)"
+                  />
 
-                  <img src="./public/assets/onboarding-step1.png" alt="Writing Code" />
+                  <img
+                    src="./public/assets/onboarding-step1.png"
+                    alt="Writing Code"
+                  />
                 </picture>
               </div>
               <div class="step-content">
                 <h3><span class="step-icon">1</span> Write or Load</h3>
                 <p>
-                  Write code in the <strong>Assembly Window</strong>, select an <strong>Example</strong>, or edit <strong>RAM</strong> cells directly.
+                  Write code in the <strong>Assembly Window</strong>, select an
+                  <strong>Example</strong>, or edit <strong>RAM</strong> cells
+                  directly.
                 </p>
               </div>
             </div>
@@ -1673,15 +1711,22 @@
             <div class="step" style="--order: 2">
               <div class="step-image-container">
                 <picture>
-                  <source srcset="./public/assets/onboarding-step2-dark.png" media="(prefers-color-scheme: dark)">
-                  
-                  <img src="./public/assets/onboarding-step2.png" alt="Assemble Button" />
+                  <source
+                    srcset="./public/assets/onboarding-step2-dark.png"
+                    media="(prefers-color-scheme: dark)"
+                  />
+
+                  <img
+                    src="./public/assets/onboarding-step2.png"
+                    alt="Assemble Button"
+                  />
                 </picture>
               </div>
               <div class="step-content">
                 <h3><span class="step-icon">2</span> Assemble</h3>
                 <p>
-                  If you wrote custom code in the Assembly Window, click <strong>Assemble to Binary</strong> to compile it into RAM.
+                  If you wrote custom code in the Assembly Window, click
+                  <strong>Assemble to Binary</strong> to compile it into RAM.
                 </p>
               </div>
             </div>
@@ -1689,30 +1734,51 @@
             <div class="step" style="--order: 3">
               <div class="step-image-container">
                 <picture>
-                  <source srcset="./public/assets/onboarding-step3-dark.png" media="(prefers-color-scheme: dark)">
-                  
-                  <img src="./public/assets/onboarding-step3.png" alt="Run Controls" />
+                  <source
+                    srcset="./public/assets/onboarding-step3-dark.png"
+                    media="(prefers-color-scheme: dark)"
+                  />
+
+                  <img
+                    src="./public/assets/onboarding-step3.png"
+                    alt="Run Controls"
+                  />
                 </picture>
               </div>
               <div class="step-content">
                 <h3><span class="step-icon">3</span> Execute</h3>
                 <p>
-                  Click <strong>Auto Run</strong> or <strong>Next Step</strong>. The app will switch views automatically to show the execution cycle.
+                  Click <strong>Auto Run</strong> or <strong>Next Step</strong>.
+                  The app will switch views automatically to show the execution
+                  cycle.
                 </p>
               </div>
             </div>
+          </div>
 
-        </div>
-
-        <div class="onboarding-footer" style="--order: 4">
-          <button id="btn-start-app" class="primary-button">
-            Start Simulator
-            <!-- Tabler Icons -->
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></svg>
-          </button>
+          <div class="onboarding-footer" style="--order: 4">
+            <button id="btn-start-app" class="primary-button">
+              Start Simulator
+              <!-- Tabler Icons -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 12h14m-6 6l6-6m-6-6l6 6"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
   </body>
 </html>

@@ -659,6 +659,7 @@ than min-width breakpoints */
 
 /* Mobile */
 @media (max-width: 800px) {
+  /* TO-DO, refactor this so it should be control panel → RAM → the rest */
   main,
   .hidden-nav main,
   .compact-mode main {
@@ -697,6 +698,8 @@ than min-width breakpoints */
 
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    justify-content: flex-end;
   }
 
   #app-controls::-webkit-scrollbar {
