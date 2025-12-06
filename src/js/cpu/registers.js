@@ -17,7 +17,11 @@ import { animateValChange } from "../ui/animate.js";
 
 import { MEMORY_SIZE } from "../utils/constants.js";
 
-import { decodeInstruction, decodeOperand } from "../utils/decode.js";
+import {
+  decodeInstruction,
+  decodeOperand,
+  decodeAssembly,
+} from "../utils/decode.js";
 
 // TO-DO, probably refactor this...
 import { displayASMValue } from "../ui/inputDisplay.js";
@@ -186,9 +190,12 @@ class RegisterView {
     await animateValChange(this.#acc_register, formattedValue);
   }
 
-  setACCASMValue(value) {
-    const asmValue = displayASMValue(value);
-    this.#acc_register_asm_value.textContent = asmValue;
+  setACCASMInstruction(instruction) {
+    this.#acc_register_asm_value.textContent = instruction;
+  }
+
+  setACCASMOperand(value) {
+    this.#acc_register_asm_value.textContent = value;
   }
 
   // View: Instruction Register
@@ -277,11 +284,14 @@ class RegisterController {
   }
 
   async #syncACCView() {
-    // update with animation the actual cell, then update the Assembly column
     const accBinary = this.#model.getACCValue();
 
-    // update ASM first, then flash input.
-    this.#view.setACCASMValue(accBinary);
+    const [instruction, operand] = decodeAssembly(accBinary);
+
+    // update ASM first, then play animation on the acc input element.
+    this.#view.setACCASMInstruction(instruction);
+    this.#view.setACCASMOperand(operand);
+
     await this.#view.setACCValue(accBinary);
   }
 
@@ -313,6 +323,8 @@ class RegisterController {
     //then flash input
     await this.#view.setIRValue(bin);
   }
+
+  decode;
 }
 
 export { RegisterController };
