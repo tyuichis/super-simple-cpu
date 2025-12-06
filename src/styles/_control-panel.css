@@ -1,0 +1,181 @@
+/* 
+Main Control Panel 
+
+(which houses the bus diagram-- but that's its own file)
+
+ */
+
+:root {
+  /* Status Colors */
+
+  /*
+  in case VS code color display don't work:
+
+  READY : green
+  FETCHING: blue (because it's CPU ← RAM)
+  DECODING: orange (because CPU registers are orange)
+  EXECUTING : not orange; (ALU should probably be a different color).
+  PAUSED : yellow
+  STOPPED : red 
+  ERROR : red
+
+  Define the color palette in the _variables.css file, then reference it within this file.
+
+  message color → dark tone
+  status indicator → lighter tone (of message color, since status indicator is just a dot fill)
+
+  */
+
+  --ready-status-color: var(--stripe-green-300);
+  --ready-status-color-monochrome: white;
+
+  --decoding-status-message-color: var(--radix-light-amber-39);
+  --decoding-status-color: var(--radix-light-amber-33);
+
+  --fetching-status-message-color: var(--radix-light-indigo-33);
+  --fetching-status-color: --var(--ram-color);
+
+  --executing-status-message-color: var(--radix-light-lime-38);
+  --executing-status-color: var(--radix-light-lime-32);
+
+  /* Paused... does it require a colored message? Sure for consistency; because it has its own status indicator */
+  --paused-status-message-color: #eab308;
+  --paused-status-color: #eab308;
+
+  --stopped-status-color: #b91c1c;
+
+  --error-status-color: var(--radix-light-yellow-24);
+  --error-status-message-color: var(--radix-light-yellow-20);
+
+  --halted-status-color: var(--ibm-red-70);
+
+  --segfault-status-color: var(--radix-light-purple-49);
+  --segfault-status-message-color: var(--radix-light-purple-28);
+
+  --fetch-execute-circle-color: #333;
+}
+
+/* 
+ Status message colors;
+
+ List of status states
+
+ - ready
+ - running
+ - fetching
+ - decoding
+ - executing
+ - paused
+ - stopped
+ - halted
+ - error
+ - segfault
+
+ Not every css class needs an appearance change / color modifier
+
+ */
+
+/* Control Panel appearance */
+
+#app-status-container {
+  color: var(--app-font-color);
+}
+
+#current-instruction {
+  font-family: var(--monospace-font);
+  font-size: var(--monospace-font-size);
+}
+
+/* Status Messages */
+
+/* These will always show on a dark surface (light/dark), as the control panel is dark themed */
+
+.fetching {
+  color: var(--fetching-status-message-color);
+}
+
+.decoding {
+  color: var(--decoding-status-message-color);
+}
+
+.error {
+  color: var(--error-status-message-color);
+}
+
+.executing {
+  color: var(--executing-status-message-color);
+}
+
+.segfault {
+    color: var(--segfault-status-message-color);
+}
+
+/* Status indicator */
+
+#status-message:before {
+  content: "●";
+  padding-right: 0.5em;
+}
+
+.ready::before {
+  color: var(--ready-status-color-monochrome);
+  animation: 1.75s ease-in 1s infinite reverse both slow-dot-pulse;
+}
+
+.decoding::before {
+  color: var(--decoding-status-color);
+}
+
+.fetching::before {
+  color: var(--fetching-status-color);
+}
+
+.executing::before {
+  animation: 1.55s ease-in 1s infinite reverse both slow-dot-pulse;
+  color: var(--executing-status-color);
+}
+
+.paused::before {
+  color: var(--paused-status-color);
+}
+
+.stopped::before {
+  color: var(--stopped-status-color);
+}
+
+.error::before {
+  color: var(--error-status-color);
+}
+
+.halted::before{
+    color: var(--halted-status-color);
+}
+
+.segfault::before {
+    color: var(--segfault-status-color);
+}
+
+/* Miscellaneous info */
+
+/* This uses either a filled background or border outline... */
+#fetch-execute-counter-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: oklch(66.6% 0.179 58.318); */
+  background-color: var(--fetch-execute-circle-color);
+  /* border: var(--fetch-execute-circle-border); */
+  /* border: 2px solid var(--app-status-border-color); */
+  width: 30px;
+  height: 30px;
+  border-radius: 99px;
+}
+
+/* #fetch-execute-subtitle {
+  font-weight: 500;
+} */
+
+#fetch-execute-counter {
+  font-size: var(--fetch-execute-counter-font-size);
+  color: var(--fetch-execute-counter-font-color);
+}
