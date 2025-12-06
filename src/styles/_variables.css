@@ -401,3 +401,11 @@ Color accessible preferences.
 @media (prefers-contrast: more) {
   /* TO-DO */
 }
+
+
+@media (max-width: 800px) {
+  :root {
+    --global-font-size-default: 16px;
+    --monospace-font-size: 1rem;
+  }
+}

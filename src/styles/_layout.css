@@ -635,10 +635,19 @@ section#memory-view .table-container {
   width: 100%;
 }
 
-.svg-wrapper #bus-diagram {
+/* .svg-wrapper #bus-diagram {
   max-width: var(--bus-diagram-size);
   height: auto;
   display: block;
+} */
+
+.svg-wrapper #bus-diagram {
+  max-width: var(--bus-diagram-size);
+  width: 100%;
+  aspect-ratio: 140 / 117;
+  height: auto;
+  display: block;
+  background-color: transparent;
 }
 
 /*
@@ -660,15 +669,74 @@ than min-width breakpoints */
     margin: 0 1rem;
   }
 
+  header {
+    padding: 0.5rem;
+    gap: 0.5rem;
+    background-color: var(--page-bg-color);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid var(--app-border-color);
+  }
+
+  #logo svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #app-title {
+    font-size: 1rem;
+  }
+
+  #app-controls {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    gap: 0.5rem;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #app-controls::-webkit-scrollbar {
+    display: none;
+  }
+
+  #app-controls button {
+    padding: 0.5em 0.75em;
+    font-size: 0.85rem;
+  }
+
+  #app-bus-diagram {
+    background-color: black;
+    margin: 0 -1rem;
+    padding: 1rem;
+    width: calc(100% + 2rem);
+  }
+
+  .svg-wrapper #bus-diagram {
+    margin: 0 auto;
+  }
+
+  /* Add spacing between the diagram and the RAM table */
+  #app-status-container {
+    margin-bottom: 2rem;
+  }
+
   /* Show the assembly window since you can't change tabs. */
   #assembly-window-tab {
     display: flex;
     gap: 1rem;
   }
 
-.hidden-nav.compact-mode main {
+  #cpu {
+    overflow-x: auto;
+  }
+
+  .hidden-nav.compact-mode main {
     grid-template-columns: 1fr;
-}
+  }
 
   #nav-view {
     display: none;
