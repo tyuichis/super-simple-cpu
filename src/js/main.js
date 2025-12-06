@@ -3,72 +3,80 @@
 
 // TO-DO: On next step button execution, create an anchor link w/ fragment id
 // and click on it to force the viewport to jump to the correct address.
+// low priority, since max cells = 16 (currently)
 
-import { displayFormattedIOInput } from "./ui/io-input.js";
-
-import { displayExample } from "./ui/loadExample.js";
+import { CPU } from "./cpu/cpu.js";
 
 import { displayTabView } from "./ui/tabView.js";
 
-import {
-  formatMemoryInput,
-  getRawInput,
-  convertInputBinaryToDecimal,
-  displayMemorySubtitle,
-  preventNonBinaryDigits,
-} from "./ui/memoryView.js";
+import { clearApp, clearCPURegisters } from "./utils/clearApp.js";
+import { loadMemory } from "./utils/loadMemory.js";
+import { saveMemoryFile } from "./utils/saveMemory.js";
 
-import { getMemoryCells, saveMemoryFile } from "./utils/saveMemory.js";
-import { getJSONSaveData, loadMemory } from "./utils/loadMemory.js";
-import {
-  clearIO,
-  clearMemory,
-  clearCPURegisters,
-  clearApp,
-} from "./utils/clearApp.js";
+import { AppState } from "./utils/settings.js";
 
-// TO-DO: Refactor OPCODES to be only called within the function that calls it (i.e. memoryView)
-import { OPCODES, MEMORY_SIZE } from "./utils/constants.js";
-
-import { EXAMPLE_LIST } from "./utils/exampleList.js";
+// initialise our app
+const cpu = new CPU();
 
 /*
-Variables
+  Settings
+    Load user settings from localStorage
 */
 
-// memory labels defined by user or examples
-const LABELS = new Map();
-
-/*
-eventListeners
-*/
-
-// Load Examples eventListeners
-
-const exampleOptionSelector = document.getElementById("memory-examples");
-
-exampleOptionSelector.addEventListener("change", (e) => {
-  const optionValue = e.target.value;
-  if (optionValue !== 0) {
-    clearMemory();
-
-    const selectedExample = EXAMPLE_LIST[optionValue - 1];
-
-    displayExample(selectedExample);
-
-    // Same memory view update.
-
-    for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
-      const memoryVal = document.getElementById(`mem-val-${i}`);
-      const rawInput = getRawInput(memoryVal.value);
-
-      // update the memory cell formatting.
-      memoryVal.value = formatMemoryInput(rawInput);
-      // update the subtitle based on the new memory cell value
-      displayMemorySubtitle(i);
-    }
-  }
+// initialise our settings from localStorage
+// the variable is not used; it just initialises state... should probably refactor later.
+const appState = new AppState({
+  compactMode: false,
+  runSpeed: "normal",
+  navCollapsed: false,
 });
+
+// i forget, but I may access this htmlelement somewhere...
+// not enough time to refactor.
+const htmlElement = document.querySelector("html");
+
+// New user onboarding
+
+// test onboarding
+const isDemoMode = true;
+
+const onboardingOverlay = document.getElementById("onboarding-overlay");
+const startButton = document.getElementById("btn-start-app");
+
+const STORAGE_KEY = "cpu-sim-onboarding-timestamp";
+const EXPIRATION_HOURS = 48;
+const EXPIRATION_MS = EXPIRATION_HOURS * 60 * 60 * 1000;
+
+const lastSeen = JSON.parse(localStorage.getItem(STORAGE_KEY));
+const now = Date.now();
+
+// lastSeen doesn't exist if we never set the key in the first time (on onboard close anyways)
+const shouldShow =
+  !lastSeen || now - parseInt(lastSeen) > EXPIRATION_MS || isDemoMode;
+
+if (shouldShow) {
+  if (onboardingOverlay) onboardingOverlay.classList.remove("hidden");
+}
+
+if (startButton && onboardingOverlay) {
+  const closeOnboarding = () => {
+    onboardingOverlay.classList.add("hidden");
+    // Store latest access time as a UNIX timestamp....
+    localStorage.setItem(STORAGE_KEY, Date.now().toString());
+  };
+
+  startButton.addEventListener("click", closeOnboarding);
+
+  // Also if the user clicks out of the modal (the backdrop... close it)
+  onboardingOverlay.addEventListener("click", (e) => {
+    if (e.target === onboardingOverlay) {
+      closeOnboarding();
+    }
+  });
+}
+/*
+ App buttons eventListeners
+*/
 
 // Saving
 
@@ -82,23 +90,11 @@ saveButton.addEventListener("click", async () => {
   }
 });
 
-// Debug
-// saveButton.addEventListener("click", () => {
-//   console.log(getMemoryCells());
-// });
-
 const loadButton = document.getElementById("app-load");
 
 loadButton.addEventListener("click", async () => {
   try {
-    // wait for JSON load to finish
     await loadMemory();
-
-    // then update our input fields in the memoryView
-
-    for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
-      displayMemorySubtitle(i);
-    }
   } catch (error) {
     console.error(`Something wrong happened while loading memory: ${error}`);
   }
@@ -116,66 +112,131 @@ clearButton.addEventListener("click", () => {
   }
 });
 
-// IO eventListeners
+const resetButton = document.getElementById("app-reset");
+resetButton.addEventListener("click", () => {
+  // RAM is preserved
 
-const ioInputButton = document.getElementById("io-input");
+  // GET PC first, then clear the last active memory slot
+  cpu.resetActiveMemory();
 
-ioInputButton.addEventListener("input", (e) => {
-  // pass the element directly into the formatter.
-  displayFormattedIOInput(e.target);
+  // wipe the registers
+  clearCPURegisters();
+
+  const logWindow = document.getElementById("log-window");
+  logWindow.value = "";
+
+  // clear the statuses.
+  cpu.resetStatus();
+  cpu.clearFetchExecuteCounter();
 });
 
-// Memory View eventListeners
-for (let i = 0; i <= MEMORY_SIZE - 1; i++) {
-  const inputElement = document.getElementById(`mem-val-${i}`);
-
-  inputElement.addEventListener("input", (e) => {
-    // Get, sanitize and format user input
-    const rawInput = getRawInput(e.target.value);
-    const sanitizedInput = preventNonBinaryDigits(rawInput);
-    const formattedString = formatMemoryInput(sanitizedInput);
-
-    // Display valid input
-    e.target.value = formattedString;
-
-    // Display the decoded instruction as a subtitle
-    displayMemorySubtitle(i);
-  });
+// ....... manually keep track of input cursor because the browser doesn't do it for us. (TO-DO)
+function calculateNewCursorPos() {
+  // have to read up on setSelectionRange mdn and calculate stuff.
 }
 
-// console.log(getMemoryCells());
+// Required to play animations without breaking
+// because animations are tied to 'animationend'
+function switchToMainView() {
+  const mainTabButton = document.getElementById("view-main-button");
+  if (mainTabButton) {
+    displayTabView(mainTabButton);
+  }
+}
 
-/* For OPcodes; allow words to be clicked and focus specific inputs on the app
+const nextStepButton = document.getElementById("app-next-step");
+nextStepButton.addEventListener("click", async () => {
+  switchToMainView();
+  await cpu.start();
+  await cpu.step();
+});
 
-Example: clicking on 'accumulator' within an OPcode explanation, focuses on the actual accumulator input
- */
+const autoRunButton = document.getElementById("app-run");
 
-// TO-DO: Refactor/remake this test code. I don't remember adding this. Copilot may have modified the original accidentally??
-document.querySelectorAll(".focus-trigger").forEach((trigger) => {
-  trigger.addEventListener("click", () => {
-    const targetId = trigger.dataset.target;
-    const targetElement = document.getElementById(targetId);
+autoRunButton.addEventListener("click", async () => {
+  if (!cpu.isRunning) {
+    switchToMainView();
+    await cpu.autoRun();
+  }
+});
 
-    targetElement.classList.remove("pulse-blue");
+const stopButton = document.getElementById("app-stop");
+stopButton.addEventListener("click", () => {
+  cpu.stop();
+});
 
-    void targetElement.offsetWidth;
+// compile assembly to binary
 
-    targetElement.classList.add("pulse-blue");
+const assembleButton = document.getElementById("btn-assembly-to-binary");
 
-    targetElement.addEventListener(
-      "animationend",
-      () => {
-        targetElement.classList.remove("pulse-blue");
-      },
-      { once: true }
-    );
-  });
+assembleButton.addEventListener("click", (_) => {
+  cpu.assemble();
 });
 
 // Navigation tab eventListener
 
-document.querySelectorAll("#nav-view button").forEach((tabButton) => {
+document.querySelectorAll("#nav-tabs-group button").forEach((tabButton) => {
   tabButton.addEventListener("click", (e) => {
     displayTabView(e.target);
+  });
+});
+
+// Global Hotkeys
+
+window.addEventListener("keydown", (e) => {
+  // if pressing CTRL or CMD i.e. to reload, don't run.
+  if (e.metaKey) return;
+
+  // do not activate on editable areas like inputs/textareas; assembly / log windows
+  const element = e.target.tagName.toLowerCase();
+  const isEditable =
+    element === "input" || element === "textarea" || element.isContentEditable;
+
+  if (isEditable) return;
+
+  const key = e.key.toLowerCase();
+
+  if (e.shiftKey && key === "r") {
+    e.preventDefault();
+    resetButton.click();
+    return;
+  }
+
+  const hotkeys = {
+    " ": nextStepButton,
+    r: autoRunButton,
+    escape: stopButton,
+  };
+
+  const keyTarget = hotkeys[key];
+
+  // if hotkey exists, then let's click it.
+  if (keyTarget) {
+    e.preventDefault();
+    keyTarget.click();
+  }
+});
+
+// setup clipboard copy buttons
+
+// TO-DO, add copy button animation?
+// where text changes to "Copied!" and returns back to "Copy Output"
+document.querySelectorAll(".clipboard-copy").forEach((btn) => {
+  btn.addEventListener("click", async (_) => {
+    const textarea = document.getElementById(btn.dataset.target);
+
+    await navigator.clipboard.writeText(textarea.value);
+
+    // Change the button text.
+
+    const originalText = btn.textContent;
+    btn.textContent = "Copied!";
+
+    // wait a bit so the user can see the changed text content before it reverts back
+    // to the original text.
+    const ms = 1000;
+    await new Promise((resolve) => setTimeout(resolve, ms));
+
+    btn.textContent = originalText;
   });
 });
