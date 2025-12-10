@@ -368,6 +368,20 @@ input[readonly] {
   color: white;
 }
 
+/* scrollbar visual aid */
+
+
+.table-title:has(.scroll-arrow) {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.scroll-arrow {
+  font-size: 2rem;
+}
 
 
 @media (max-width: 800px) {
