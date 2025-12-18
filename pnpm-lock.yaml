@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      '@tsconfig/recommended':
-        specifier: ^1.0.13
-        version: 1.0.13
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -286,9 +283,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@tsconfig/recommended@1.0.13':
-    resolution: {integrity: sha512-sySRuBfMKyKO/j2ZAhR8kSembhjuPEV4Ra3AHtmWLq51+iGaudr45crPSzNC5b7/Ctrh9dfUpBuTlYrH6rM58Q==}
-
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
@@ -530,8 +524,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.53.5':
     optional: true
-
-  '@tsconfig/recommended@1.0.13': {}
 
   '@types/estree@1.0.8': {}
 
